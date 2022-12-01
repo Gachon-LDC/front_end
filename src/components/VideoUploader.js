@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { WebcamStreamCapture } from "./WebcamStreamCapture";
+import { WebcamCapture } from "./WebcamCapture";
 
 const VideoUploader = () => {
     const [file, setFile] = useState({});
@@ -33,7 +34,9 @@ const VideoUploader = () => {
             )}
             <div id="Webcam" width="350px" height="350px" />
             {/* {ReactDOM.render(<Webcam />, document.getElementById("Webcam"))} */}
-            <WebcamStreamCapture />
+            {/* <WebcamStreamCapture /> */}
+            {/* <WebcamCapture imageUpload={imageUpload} />
+            위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
         </Wrap>
     );
 };

@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
+
 import { DiaryStateContext } from "../App";
 import DiaryList from "../components/DiaryList";
 
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
 import VideoUploader from "../components/VideoUploader";
+import { WebcamCapture } from "../components/WebcamCapture";
 import { WebcamDemo } from "../components/WebcamDemo";
 const Home = () => {
     //탭 이름을 바꾸는 코드.
@@ -98,10 +101,19 @@ const Home = () => {
             <DiaryList diaryList={data} />
             <div className="VideoWrapper">
                 <VideoUploader />
-                <MyButton text={"submit"} type={"POSITIVE"} />
+                <Wrap>
+                    <WebcamCapture />
+                    <MyButton text={"submit"} type={"POSITIVE"} />
+                </Wrap>
+                {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
             </div>
         </div>
     );
 };
 
+const Wrap = styled.div`
+    border: 1px solid gray;
+    padding: 20px;
+    margin-bottom: 20px;
+`;
 export default Home;
