@@ -37,7 +37,7 @@ const Diary = () => {
         );
         console.log(curEmotionData.emotion_img);
 
-        localStorage.setItem("video", require("./video.mp4"));
+        localStorage.setItem("video", require("./videoplayback.mp4"));
         return (
             <div className="Diary">
                 <MyHeader
@@ -57,12 +57,13 @@ const Diary = () => {
                 />
                 <article>
                     <section>
-                        <video width="360" height="280" controls="controls">
+                        <video controls="controls">
                             <source
                                 src={localStorage.getItem("video")}
                                 type="video/mp4"
                             />
                         </video>
+
                         <h4>오늘의 감정</h4>
                         <div className="diary_img_wrapper">
                             <img src={curEmotionData.emotion_img} />

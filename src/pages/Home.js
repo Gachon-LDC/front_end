@@ -4,7 +4,8 @@ import DiaryList from "../components/DiaryList";
 
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
-
+import VideoUploader from "../components/VideoUploader";
+import { WebcamDemo } from "../components/WebcamDemo";
 const Home = () => {
     //탭 이름을 바꾸는 코드.
     useEffect(() => {
@@ -74,7 +75,7 @@ const Home = () => {
         );
     };
     return (
-        <div>
+        <div className="Home">
             <MyHeader
                 headText={headText}
                 leftChild={
@@ -95,6 +96,10 @@ const Home = () => {
                 }
             />
             <DiaryList diaryList={data} />
+            <div className="VideoWrapper">
+                <VideoUploader />
+                <MyButton text={"submit"} type={"POSITIVE"} />
+            </div>
         </div>
     );
 };

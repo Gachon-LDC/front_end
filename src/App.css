@@ -342,3 +342,24 @@ header button {
     font-weight: 400;
     line-height: 2.5;
 }
+.Diary video {
+    padding: 20px;
+    width: 75%;
+}
+
+.Home .VideoWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Video_Uploader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Video_Uploader .content {
+    padding: 20px;
+}
