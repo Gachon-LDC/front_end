@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Webcam from "react-webcam";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
+import { WebcamStreamCapture } from "./WebcamStreamCapture";
 
 const VideoUploader = () => {
     const [file, setFile] = useState({});
@@ -32,6 +33,7 @@ const VideoUploader = () => {
             )}
             <div id="Webcam" width="350px" height="350px" />
             {/* {ReactDOM.render(<Webcam />, document.getElementById("Webcam"))} */}
+            <WebcamStreamCapture />
         </Wrap>
     );
 };
