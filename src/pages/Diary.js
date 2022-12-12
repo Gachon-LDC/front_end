@@ -4,7 +4,8 @@ import { DiaryStateContext } from "../App";
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
 import { getStringDate } from "../util/date";
-import { emotionList } from "../util/emotion";
+import styled from "styled-components";
+import { WebcamCapture } from "../components/WebcamCapture";
 
 const Diary = () => {
     //탭 이름을 바꾸는 코드.
@@ -18,6 +19,8 @@ const Diary = () => {
     const diaryList = useContext(DiaryStateContext);
     const navigate = useNavigate();
     const [data, setData] = useState();
+    const [source, setSource] = useState();
+    const [openCamera, setOpenCamera] = useState(false);
     useEffect(() => {
         const targetDiary = diaryList.find(
             (it) => parseInt(it.id) === parseInt(id)
@@ -28,20 +31,20 @@ const Diary = () => {
             navigate("/", { replace: true });
         }
     }, [id, diaryList]);
-
+    useEffect(() => {
+        if (data) {
+            console.log(data);
+            setSource(data.file.data);
+        }
+    }, [data]);
     if (!data) {
         return <div className="Diary">로딩중입니다...</div>;
     } else {
-        const curEmotionData = emotionList.find(
-            (it) => parseInt(it.emotion_id) === parseInt(data.emotion)
-        );
-        console.log(curEmotionData.emotion_img);
-
-        localStorage.setItem("video", require("./videoplayback.mp4"));
+        // localStorage.setItem("video", require("./videoplayback.mp4"));
         return (
             <div className="Diary">
                 <MyHeader
-                    headText={`${getStringDate(new Date(data.date))}의 기록`}
+                    headText={data.title}
                     leftChild={
                         <MyButton
                             text={"뒤로가기"}
@@ -56,24 +59,49 @@ const Diary = () => {
                     }
                 />
                 <article>
-                    <section>
+                    <Wrap className="contentWrapper">
+                        {data.file.image && (
+                            <img
+                                className="content"
+                                src={source}
+                                width="600"
+                                alt="Blob URL Image"
+                            />
+                        )}
+                        {data.file.video && (
+                            <video
+                                className="content"
+                                src={source}
+                                controls
+                                width="350px"
+                            />
+                        )}
+                        <div id="Webcam" width="350px" height="350px" />
+                    </Wrap>
+
+                    {/* <section>
                         <video controls="controls">
                             <source
                                 src={localStorage.getItem("video")}
                                 type="video/mp4"
                             />
                         </video>
-
-                        <h4>오늘의 감정</h4>
-                        <div className="diary_img_wrapper">
-                            <img src={curEmotionData.emotion_img} />
-                            <div className="emotion_descript">
-                                {curEmotionData.emotion_descript}
-                            </div>
-                        </div>
-                    </section>
+                    </section> */}
+                    <div className="VideoWrapper">
+                        <MyButton
+                            text={"toggle camera"}
+                            onClick={() => {
+                                setOpenCamera(!openCamera);
+                            }}
+                        />
+                        {openCamera && (
+                            <Wrap>
+                                <WebcamCapture />
+                            </Wrap>
+                        )}
+                        {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
+                    </div>
                     <section>
-                        <h4>오늘의 일기</h4>
                         <div className="diary_content_wrapper">
                             <p>{data.content}</p>
                         </div>
@@ -85,3 +113,9 @@ const Diary = () => {
 };
 
 export default Diary;
+
+const Wrap = styled.div`
+    border: 1px solid gray;
+    padding: 20px;
+    margin-bottom: 20px;
+`;

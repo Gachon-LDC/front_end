@@ -1,33 +1,43 @@
 import React, { useState } from "react";
-import Webcam from "react-webcam";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
-import { WebcamStreamCapture } from "./WebcamStreamCapture";
-import { WebcamCapture } from "./WebcamCapture";
 
-const VideoUploader = () => {
-    const [file, setFile] = useState({});
+const VideoUploader = ({ file, setFile }) => {
+    const [url, setURL] = useState();
+    const convertBase64 = (file) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
 
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+        });
+    };
     const imageUpload = (e) => {
         const imageTpye = e.target.files[0].type.includes("image");
         const videoTpye = e.target.files[0].type.includes("video");
 
-        setFile({
-            url: URL.createObjectURL(e.target.files[0]),
-            image: imageTpye,
-            video: videoTpye,
-        });
-        console.log(imageTpye);
+        convertBase64(e.target.files[0]).then((res) =>
+            setFile({
+                data: res,
+                image: imageTpye,
+                video: videoTpye,
+            })
+        );
     };
 
     return (
         <Wrap className="Video_Uploader">
             <input type="file" onChange={imageUpload} />
-            {file.image && <img className="content" src={file.url} />}
+            {file.image && (
+                <>
+                    <img className="content" src={file.data} width="600" />
+                </>
+            )}
             {file.video && (
                 <video
                     className="content"
-                    src={file.url}
+                    src={file.data}
                     controls
                     width="350px"
                 />

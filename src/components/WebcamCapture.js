@@ -1,9 +1,9 @@
 import React from "react";
 import Webcam from "react-webcam";
-import styled from "styled-components";
-import ReactDOM from "react-dom";
+
 import axios from "axios";
 import { HOST } from "../envconfig";
+import MyButton from "./MyButton";
 const videoConstraints = {
     width: 1280,
     height: 720,
@@ -21,15 +21,15 @@ export const WebcamCapture = ({ imageUpload }) => {
     }, [webcamRef]);
     return (
         <>
+            <MyButton text={"Capture"} onClick={capture} />
+            <MyButton text={"submit"} type={"POSITIVE"} />
             <Webcam
                 audio={false}
-                height={720}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                width={600}
                 videoConstraints={videoConstraints}
+                mirrored={true}
             />
-            <button onClick={capture}>Capture photo</button>
         </>
     );
 };

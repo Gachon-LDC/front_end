@@ -61,14 +61,15 @@ function App() {
         }
     }, []);
     //CREATE
-    const onCreate = (date, content, emotion) => {
+    const onCreate = (date, content, file, title) => {
         dispatch({
             type: "CREATE",
             data: {
                 id: dataId.current,
                 date: new Date(date).getTime(),
                 content,
-                emotion,
+                file,
+                title,
             },
         });
         dataId.current += 1;
@@ -78,14 +79,15 @@ function App() {
         dispatch({ type: "REMOVE", targetId });
     };
     //EDIT
-    const onEdit = (targetID, date, content, emotion) => {
+    const onEdit = (targetID, date, content, file, title) => {
         dispatch({
             type: "EDIT",
             data: {
                 id: targetID,
                 date: new Date(date).getTime(),
                 content,
-                emotion,
+                file: file,
+                title: title,
             },
         });
     };

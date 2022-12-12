@@ -6,9 +6,8 @@ import DiaryList from "../components/DiaryList";
 
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
-import VideoUploader from "../components/VideoUploader";
 import { WebcamCapture } from "../components/WebcamCapture";
-import { WebcamDemo } from "../components/WebcamDemo";
+
 const Home = () => {
     //탭 이름을 바꾸는 코드.
     useEffect(() => {
@@ -20,7 +19,7 @@ const Home = () => {
 
     const [data, setData] = useState([]);
     const [curDate, setCurDate] = useState(new Date());
-
+    const [openCamera, setOpenCamera] = useState(false);
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
     useEffect(() => {
@@ -38,14 +37,7 @@ const Home = () => {
                 59,
                 59
             ).getTime();
-            console.log("cur: ", curDate);
-            console.log("fir: ", firstDay);
-            console.log("las: ", lastDay);
-            console.log(
-                diaryList.filter(
-                    (it) => firstDay <= it.date && it.date <= lastDay
-                )
-            );
+
             setData(
                 diaryList.filter(
                     (it) => firstDay <= it.date && it.date <= lastDay
@@ -99,14 +91,6 @@ const Home = () => {
                 }
             />
             <DiaryList diaryList={data} />
-            <div className="VideoWrapper">
-                <VideoUploader />
-                <Wrap>
-                    <WebcamCapture />
-                    <MyButton text={"submit"} type={"POSITIVE"} />
-                </Wrap>
-                {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
-            </div>
         </div>
     );
 };

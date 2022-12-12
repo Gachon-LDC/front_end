@@ -7,41 +7,37 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiaryDispatchContext } from "../App";
-import EmotionItem from "./EmotionItem";
 
 //Components
 import MyButton from "./MyButton";
 import MyHeader from "./MyHeader";
-import { emotionList } from "../util/emotion";
+import VideoUploader from "./VideoUploader";
 
 const getStringDate = (date) => {
-    // console.log(date.toISOString().slice(0, 10));
-    // console.log(emotionList);
     return date.toISOString().slice(0, 10);
 };
 
 const DiaryEditor = ({ isEdit, originData }) => {
     const navigate = useNavigate();
     const contentRef = useRef();
+    const titleRef = useRef();
     const [content, setContent] = useState("");
-    const [emotion, setEmotion] = useState(3);
+    const [title, setTitle] = useState("");
     const [date, setDate] = useState(getStringDate(new Date()));
 
     const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
-    const handleClickEmote = useCallback((emotion) => {
-        setEmotion(emotion);
-    }, []);
+    const [file, setFile] = useState({});
 
     const handleSubmit = () => {
         if (content.length < 1) {
             contentRef.current.focus();
             return;
         }
-        if (window.confirm(isEdit ? "Confirm edit?" : "Confirm your diary?")) {
+        if (window.confirm(isEdit ? "Confirm edit?" : "Confirm your post?")) {
             if (!isEdit) {
-                onCreate(date, content, emotion);
+                onCreate(date, content, file, title);
             } else {
-                onEdit(originData.id, date, content, emotion);
+                onEdit(originData.id, date, content, file, title);
             }
         }
 
@@ -58,8 +54,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
     useEffect(() => {
         if (isEdit) {
             setDate(getStringDate(new Date(parseInt(originData.date))));
-            setEmotion(originData.emotion);
             setContent(originData.content);
+            setTitle(originData.title);
+            setFile(originData.file);
         }
     }, [isEdit, originData]);
     return (
@@ -81,7 +78,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
             />
             <div>
                 <section>
-                    <h4>오늘은 언제인가요?</h4>
+                    <h4>제목</h4>
+                    <textarea
+                        placeholder="제목"
+                        ref={titleRef}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        height={"20px"}
+                    />
+                    <h4>날짜</h4>
                     <div className="input_box">
                         <input
                             className="input_date"
@@ -92,23 +97,14 @@ const DiaryEditor = ({ isEdit, originData }) => {
                     </div>
                 </section>
                 <section>
-                    <h4>오늘의 감정</h4>
-                    <div className="input_box emotion_list_wrapper">
-                        {emotionList.map((it) => (
-                            <EmotionItem
-                                key={it.emotion_id}
-                                {...it}
-                                onClick={handleClickEmote}
-                                isSelected={it.emotion_id === emotion}
-                            />
-                        ))}
-                    </div>
+                    <h4>파일 업로드</h4>
+                    <VideoUploader file={file} setFile={setFile} />
                 </section>
                 <section>
-                    <h4>오늘의 일기</h4>
+                    <h4>Description</h4>
                     <div className="input_box text_wrapper">
                         <textarea
-                            placeholder="how was today"
+                            placeholder="Describe your content"
                             ref={contentRef}
                             value={content}
                             onChange={(e) => setContent(e.target.value)}

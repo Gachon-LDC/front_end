@@ -229,7 +229,7 @@ header button {
 
     box-sizing: border-box;
     width: 100%;
-    min-height: 200px;
+    /* min-height: 200px; */
     resize: vertical;
 
     border: none;
@@ -343,8 +343,7 @@ header button {
     line-height: 2.5;
 }
 .Diary video {
-    padding: 20px;
-    width: 75%;
+    width: 100%;
 }
 
 .Home .VideoWrapper {
