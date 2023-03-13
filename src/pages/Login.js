@@ -6,11 +6,18 @@ import video from "../assets/ditto720main.mp4";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Modal from "react-bootstrap/Modal";
 
 const Login = () => {
+    //login states
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
+
+    // modal states
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const navigate = useNavigate();
 
     const handleLogin = (event) => {
@@ -48,7 +55,22 @@ const Login = () => {
                 playsInline={true}
                 src={video}
             />
-
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Woohoo, you're reading this text in a modal!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="logo">LDC</div>
             <form className="login_form" onSubmit={handleLogin}>
                 <InputGroup>
@@ -80,6 +102,14 @@ const Login = () => {
                     onClick={onsubmit}
                 >
                     Log in
+                </Button>
+                <Button
+                    className="signin-btn"
+                    size="md"
+                    variant="outline-primary"
+                    onClick={handleShow}
+                >
+                    Sign in
                 </Button>
             </form>
             <div className="google">login with google</div>
