@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
-import video from "../assets/omg720main.mp4";
+import video from "../assets/ditto720main.mp4";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -40,19 +40,20 @@ const Login = () => {
 
     return (
         <div className="Login">
-            {/* <video
+            <video
                 className="main_vid"
                 autoPlay={true}
                 muted={true}
                 loop={true}
                 playsInline={true}
                 src={video}
-            /> */}
+            />
 
             <div className="logo">LDC</div>
             <form className="login_form" onSubmit={handleLogin}>
-                <InputGroup className="username">
+                <InputGroup>
                     <Form.Control
+                        className="username"
                         placeholder="Username"
                         aria-label="Username"
                         value={username}
@@ -60,8 +61,9 @@ const Login = () => {
                         onChange={(event) => setUsername(event.target.value)}
                     />
                 </InputGroup>
-                <InputGroup className="password">
+                <InputGroup>
                     <Form.Control
+                        className="password"
                         placeholder="Password"
                         aria-label="Password"
                         value={password}
@@ -73,7 +75,7 @@ const Login = () => {
                 <Button
                     className="submit-btn"
                     type="submit"
-                    variant="primary"
+                    variant="outline-primary"
                     size="md"
                     onClick={onsubmit}
                 >

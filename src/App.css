@@ -1,11 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Hahmlet&family=Yeon+Sung&display=swap");
+@font-face {
+    font-family: "Ubuntu";
+    src: url("./fonts/Ubuntu-Regular.ttf");
+}
 
+div {
+    font-family: "Ubuntu";
+}
 body {
     background-color: #f6f6f6;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Hahmlet";
+    font-family: "Ubuntu";
     min-height: 100vh;
     margin: 0;
 }
