@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "./css/Login.css";
+import video from "../assets/omg720main.mp4";
+
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -33,27 +39,50 @@ const Login = () => {
     }
 
     return (
-        <form onSubmit={handleLogin}>
-            <div>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(event) => setUsername(event.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        <div className="Login">
+            {/* <video
+                className="main_vid"
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                playsInline={true}
+                src={video}
+            /> */}
+
+            <div className="logo">LDC</div>
+            <form className="login_form" onSubmit={handleLogin}>
+                <InputGroup className="username">
+                    <Form.Control
+                        placeholder="Username"
+                        aria-label="Username"
+                        value={username}
+                        aria-describedby="basic-addon1"
+                        onChange={(event) => setUsername(event.target.value)}
+                    />
+                </InputGroup>
+                <InputGroup className="password">
+                    <Form.Control
+                        placeholder="Password"
+                        aria-label="Password"
+                        value={password}
+                        aria-describedby="basic-addon1"
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                </InputGroup>
+
+                <Button
+                    className="submit-btn"
+                    type="submit"
+                    variant="primary"
+                    size="md"
+                    onClick={onsubmit}
+                >
+                    Log in
+                </Button>
+            </form>
+            <div className="google">login with google</div>
+            <div className="register">don't have an account? Sign up</div>
+        </div>
     );
 };
 
