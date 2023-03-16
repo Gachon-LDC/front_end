@@ -21,9 +21,6 @@
     font-weight: bold;
     color: white;
     text-align: center;
-
-    position: absolute;
-    top: 35%;
     width: 100%;
     z-index: 100;
 }
@@ -35,7 +32,7 @@
     z-index: 100;
 }
 .username {
-    margin-top: 40%;
+    margin-top: 25%;
     width: 100%;
     z-index: 100;
     background-color: rgba(255, 255, 255, 0.1);
@@ -100,4 +97,17 @@
     color: rgba(255, 255, 255, 0.2);
     background-color: transparent;
     transition: 0.3s;
+}
+
+/* Sign up */
+.signup-email {
+}
+.signup-fullname {
+    margin-top: 2%;
+}
+.signup-username {
+    margin-top: 2%;
+}
+.signup-password {
+    margin-top: 2%;
 }

@@ -18,17 +18,23 @@ const Login = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    //Signup States
+    const [suUsername, setSuUsername] = useState("");
+    const [suPassword, setSuPassword] = useState("");
+    const [suFullname, setSuFullname] = useState("");
+    const [suEmail, setSuEmail] = useState("");
+
     const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
         // Perform login logic here
         setLoggedIn(true);
-        {
-            setTimeout(() => {
-                navigate("/home", { replace: true });
-            }, 2000);
-        }
+
+        setTimeout(() => {
+            navigate("/home", { replace: true });
+        }, 2000);
     };
 
     const handleLogout = () => {
@@ -57,17 +63,60 @@ const Login = () => {
             />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Sign Up</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Woohoo, you're reading this text in a modal!
+                    <InputGroup>
+                        <Form.Control
+                            className="signup-email"
+                            placeholder="Email"
+                            aria-label="Email"
+                            value={suEmail}
+                            aria-describedby="basic-addon1"
+                            onChange={(event) => setSuEmail(event.target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup>
+                        <Form.Control
+                            className="signup-fullname"
+                            placeholder="Full Name"
+                            aria-label="Full Name"
+                            value={suFullname}
+                            aria-describedby="basic-addon1"
+                            onChange={(event) =>
+                                setSuFullname(event.target.value)
+                            }
+                        />
+                    </InputGroup>
+                    <InputGroup>
+                        <Form.Control
+                            className="signup-username"
+                            placeholder="Username"
+                            aria-label="Username"
+                            value={suUsername}
+                            aria-describedby="basic-addon1"
+                            onChange={(event) =>
+                                setSuUsername(event.target.value)
+                            }
+                        />
+                    </InputGroup>
+                    <InputGroup>
+                        <Form.Control
+                            type="password"
+                            className="signup-password"
+                            placeholder="Password"
+                            aria-label="Password"
+                            value={suPassword}
+                            aria-describedby="basic-addon1"
+                            onChange={(event) =>
+                                setSuPassword(event.target.value)
+                            }
+                        />
+                    </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
                     <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                        Sign Up
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -109,11 +158,10 @@ const Login = () => {
                     variant="outline-primary"
                     onClick={handleShow}
                 >
-                    Sign in
+                    Sign Up
                 </Button>
             </form>
-            <div className="google">login with google</div>
-            <div className="register">don't have an account? Sign up</div>
+            {/* <div className="google">login with google</div> */}
         </div>
     );
 };
