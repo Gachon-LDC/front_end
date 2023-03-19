@@ -78,15 +78,6 @@ const Diary = () => {
                         )}
                         <div id="Webcam" width="350px" height="350px" />
                     </Wrap>
-
-                    {/* <section>
-                        <video controls="controls">
-                            <source
-                                src={localStorage.getItem("video")}
-                                type="video/mp4"
-                            />
-                        </video>
-                    </section> */}
                     <div className="VideoWrapper">
                         <MyButton
                             text={"toggle camera"}

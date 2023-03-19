@@ -1,20 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MyButton from "./MyButton";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./css/PostItem.css";
 const PostItem = ({ id, emotion, content, date, file, title }) => {
     const navigate = useNavigate();
 
     const goDetail = () => {
-        navigate(`./diary/${id}`);
+        navigate(`/post/${id}`);
     };
     const goEdit = () => {
         navigate(`./edit/${id}`);
     };
     return (
-        <div className="PostItem">
+        <div className="PostItem" onClick={goDetail}>
             <Card style={{ width: "75%" }}>
                 <Card.Img variant="top" src={require("../assets/ditto.png")} />
                 <Card.Body>

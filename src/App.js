@@ -106,7 +106,7 @@ function App() {
                             <Route path="/home" element={<Home />} />
                             <Route path="/new" element={<New />} />
                             <Route path="/edit/:id" element={<Edit />} />
-                            <Route path="/diary/:id" element={<Diary />} />
+                            <Route path="/post/:id" element={<Diary />} />
                             // colon을 통해 id값을 전달 할 수있다. 대신 id를
                             무조건 받는 형식이다
                         </Routes>

@@ -9,12 +9,6 @@ const sortOptionList = [
     { value: "oldest", name: "오래된순" },
 ];
 
-const filterOptionList = [
-    { value: "all", name: "전부다" },
-    { value: "good", name: "좋은 감정만" },
-    { value: "bad", name: "안좋은 감정만" },
-];
-
 const ControlMenu = React.memo(({ value, onChange, optionList }) => {
     return (
         <select
@@ -82,7 +76,7 @@ const PostList = ({ diaryList }) => {
                     />
                 </div>
             </div>
-            {getProgressedDiaryList().map((it) => (
+            {diaryList.map((it) => (
                 <PostItem key={it.id} {...it} />
             ))}
         </div>
