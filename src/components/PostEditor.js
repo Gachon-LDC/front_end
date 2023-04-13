@@ -17,7 +17,7 @@ const getStringDate = (date) => {
     return date.toISOString().slice(0, 10);
 };
 
-const DiaryEditor = ({ isEdit, originData }) => {
+const PostEditor = ({ isEdit, originData }) => {
     const navigate = useNavigate();
     const contentRef = useRef();
     const titleRef = useRef();
@@ -41,13 +41,13 @@ const DiaryEditor = ({ isEdit, originData }) => {
             }
         }
 
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
     };
 
     const handleRemove = () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
             onRemove(originData.id);
-            navigate("/", { replace: true });
+            navigate("/home", { replace: true });
         }
     };
 
@@ -60,7 +60,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         }
     }, [isEdit, originData]);
     return (
-        <div className="DiaryEditor">
+        <div className="PostEditor">
             <MyHeader
                 leftChild={
                     <MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />
@@ -86,15 +86,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
                         onChange={(e) => setTitle(e.target.value)}
                         height={"20px"}
                     />
-                    <h4>날짜</h4>
-                    <div className="input_box">
-                        <input
-                            className="input_date"
-                            value={date}
-                            type="date"
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                    </div>
                 </section>
                 <section>
                     <h4>파일 업로드</h4>
@@ -129,4 +120,4 @@ const DiaryEditor = ({ isEdit, originData }) => {
     );
 };
 
-export default DiaryEditor;
+export default PostEditor;

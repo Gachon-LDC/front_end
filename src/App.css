@@ -105,9 +105,9 @@ header button {
     font-family: "Hahmlet";
 }
 
-/* DiaryList */
+/* PostList */
 
-.DiaryList .menu_wrapper {
+.PostList .menu_wrapper {
     margin-top: 20px;
     margin-bottom: 30px;
 
@@ -115,15 +115,15 @@ header button {
     justify-content: space-between;
 }
 
-.DiaryList .menu_wrapper .right_col {
-    flex-grow: 1;
+.PostList .menu_wrapper .right_col {
+    flex-grow: 0.1;
 }
 
-.DiaryList .menu_wrapper .right_col button {
+.PostList .menu_wrapper .right_col button {
     width: 100%;
 }
 
-.DiaryList .ControlMenu {
+.PostList .ControlMenu {
     margin-right: 10px;
     border: none;
     border-radius: 5px;
@@ -197,19 +197,19 @@ header button {
 
 /* DiaryEditor */
 
-.DiaryEditor {
+.PostEditor {
 }
 
-.DiaryEditor section {
+.PostEditor section {
     margin-bottom: 40px;
 }
 
-.DiaryEditor h4 {
+.PostEditor h4 {
     font-size: 22px;
     font-weight: bold;
 }
 
-.DiaryEditor .input_date {
+.PostEditor .input_date {
     border: none;
     border-radius: 5px;
     background-color: #ececec;
@@ -224,13 +224,13 @@ header button {
     font-size: 20px;
 }
 
-.DiaryEditor .emotion_list_wrapper {
+.PostEditor .emotion_list_wrapper {
     display: grid;
     grid-template-columns: repeat(5, auto);
     gap: 2%;
 }
 
-.DiaryEditor textarea {
+.PostEditor textarea {
     font-family: "Hahmlet";
     font-size: 20px;
 
@@ -245,7 +245,7 @@ header button {
 
     padding: 20px;
 }
-.DiaryEditor .control_box {
+.PostEditor .control_box {
     display: flex;
     justify-content: space-between;
     align-items: center;

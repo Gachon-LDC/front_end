@@ -7,7 +7,7 @@ import { getStringDate } from "../util/date";
 import styled from "styled-components";
 import { WebcamCapture } from "../components/WebcamCapture";
 
-const Diary = () => {
+const Post = () => {
     //탭 이름을 바꾸는 코드.
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
@@ -103,7 +103,7 @@ const Diary = () => {
     }
 };
 
-export default Diary;
+export default Post;
 
 const Wrap = styled.div`
     border: 1px solid gray;

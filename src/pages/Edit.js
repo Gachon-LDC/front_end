@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../App";
-import DiaryEditor from "../components/DiaryEditor";
+import PostEditor from "../components/PostEditor";
 
 const Edit = () => {
     const [originData, setOriginData] = useState();
@@ -23,9 +23,7 @@ const Edit = () => {
     }, []);
     return (
         <div className="Edit">
-            {originData && (
-                <DiaryEditor isEdit={true} originData={originData} />
-            )}
+            {originData && <PostEditor isEdit={true} originData={originData} />}
         </div>
     );
 };

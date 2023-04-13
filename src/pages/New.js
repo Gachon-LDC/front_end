@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DiaryEditor from "../components/DiaryEditor";
+import PostEditor from "../components/PostEditor";
 
 const New = () => {
     return (
         <div className="New">
-            <DiaryEditor />
+            <PostEditor />
         </div>
     );
 };

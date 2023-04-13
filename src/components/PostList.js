@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MyButton from "./MyButton";
 import { useNavigate } from "react-router-dom";
-import DiaryItem from "./DiaryItem";
+
 import PostItem from "./PostItem";
 
 const sortOptionList = [
@@ -27,39 +27,13 @@ const ControlMenu = React.memo(({ value, onChange, optionList }) => {
     );
 });
 
-const PostList = ({ diaryList }) => {
+const PostList = ({ postList }) => {
     const navigate = useNavigate();
     const [sortType, setSortType] = useState("latest");
     const [filter, setFilter] = useState("all");
 
-    const getProgressedDiaryList = () => {
-        const filterCallBack = (item) => {
-            if (filter === "good") {
-                return parseInt(item.emotion) <= 3;
-            } else {
-                return parseInt(item.emotion) > 3;
-            }
-        };
-
-        const compare = (a, b) => {
-            if (sortType === "latest") {
-                return parseInt(b.date) - parseInt(a.date);
-            } else {
-                return parseInt(a.date) - parseInt(b.date);
-            }
-        };
-        const copyList = JSON.parse(JSON.stringify(diaryList));
-
-        const filteredList =
-            filter === "all"
-                ? copyList
-                : copyList.filter((it) => filterCallBack(it));
-        const sortedList = filteredList.sort(compare);
-
-        return sortedList;
-    };
     return (
-        <div className="DiaryList">
+        <div className="PostList">
             <div className="menu_wrapper">
                 <div className="left_col">
                     <ControlMenu
@@ -71,12 +45,12 @@ const PostList = ({ diaryList }) => {
                 <div className="right_col">
                     <MyButton
                         type={"POSITIVE"}
-                        text={"새 글쓰기"}
+                        text={"New Post"}
                         onClick={() => navigate("/new")}
                     />
                 </div>
             </div>
-            {diaryList.map((it) => (
+            {postList.map((it) => (
                 <PostItem key={it.id} {...it} />
             ))}
         </div>
@@ -84,6 +58,6 @@ const PostList = ({ diaryList }) => {
 };
 
 PostList.defaultProps = {
-    diaryList: [],
+    postList: [],
 };
 export default PostList;

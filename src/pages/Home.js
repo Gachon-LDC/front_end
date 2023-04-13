@@ -25,7 +25,7 @@ const Home = () => {
 
     return (
         <div className="Home">
-            <PostList diaryList={data} />
+            <PostList postList={data} />
         </div>
     );
 };
