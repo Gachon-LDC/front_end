@@ -1,3 +1,6 @@
+Figma :
+https://www.figma.com/file/v274sa4Ld1QLs2oOWdfYGg/IDC?node-id=0%3A1&t=Y5FCbLR98t4KTqXn-1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
