@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MyButton from "./MyButton";
 import { useNavigate } from "react-router-dom";
-
+import "./css/PostList.css";
 import PostItem from "./PostItem";
 
 const sortOptionList = [
@@ -30,7 +30,6 @@ const ControlMenu = React.memo(({ value, onChange, optionList }) => {
 const PostList = ({ postList }) => {
     const navigate = useNavigate();
     const [sortType, setSortType] = useState("latest");
-    const [filter, setFilter] = useState("all");
 
     return (
         <div className="PostList">
@@ -53,6 +52,7 @@ const PostList = ({ postList }) => {
             {postList.map((it) => (
                 <PostItem key={it.id} {...it} />
             ))}
+            {postList.length % 2 === 1 && <div className="spacer" />}
         </div>
     );
 };

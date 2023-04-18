@@ -5,6 +5,7 @@ import { DiaryStateContext } from "../App";
 
 import PostList from "../components/PostList";
 import "./css/Home.css";
+import { Profile } from "../components/Profile";
 
 const Home = () => {
     //탭 이름을 바꾸는 코드.
@@ -26,6 +27,7 @@ const Home = () => {
     return (
         <div className="Home">
             <PostList postList={data} />
+            <Profile />
         </div>
     );
 };

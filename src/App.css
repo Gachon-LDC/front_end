@@ -19,7 +19,7 @@ body {
 
 @media (min-width: 650px) {
     .App {
-        width: 640px;
+        width: 1200px;
     }
 }
 
@@ -103,40 +103,6 @@ header .head_btn_right {
 
 header button {
     font-family: "Hahmlet";
-}
-
-/* PostList */
-
-.PostList .menu_wrapper {
-    margin-top: 20px;
-    margin-bottom: 30px;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-.PostList .menu_wrapper .right_col {
-    flex-grow: 0.1;
-}
-
-.PostList .menu_wrapper .right_col button {
-    width: 100%;
-}
-
-.PostList .ControlMenu {
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ececec;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    cursor: pointer;
-    font-family: "Hahmlet";
-    font-size: 18px;
 }
 
 /* DIARYITEM */
@@ -352,6 +318,8 @@ header button {
 .Diary video {
     width: 100%;
 }
+
+/*  */
 
 .Home .VideoWrapper {
     display: flex;

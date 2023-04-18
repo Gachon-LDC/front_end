@@ -34,7 +34,7 @@ const Login = () => {
 
         setTimeout(() => {
             navigate("/home", { replace: true });
-        }, 2000);
+        }, 500);
     };
 
     const handleLogout = () => {

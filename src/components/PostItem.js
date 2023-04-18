@@ -13,7 +13,7 @@ const PostItem = ({ id, emotion, content, date, file, title }) => {
     };
     return (
         <div className="PostItem" onClick={goDetail}>
-            <Card style={{ width: "75%" }}>
+            <Card className="Card">
                 <Card.Img variant="top" src={require("../assets/ditto.png")} />
                 <Card.Body>
                     <Card.Title>{title.slice(0, 25)}</Card.Title>

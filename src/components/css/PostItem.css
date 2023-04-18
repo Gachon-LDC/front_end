@@ -3,4 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 37%;
+    /* margin: 4%; */
+}
+.Card {
 }
