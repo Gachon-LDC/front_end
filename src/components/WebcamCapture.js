@@ -5,7 +5,7 @@ import axios from "axios";
 import { HOST } from "../envconfig";
 import MyButton from "./MyButton";
 const videoConstraints = {
-    width: 1280,
+    width: 400,
     height: 720,
     facingMode: "user",
 };
@@ -20,9 +20,7 @@ export const WebcamCapture = ({ imageUpload }) => {
         console.log(ret);
     }, [webcamRef]);
     return (
-        <>
-            <MyButton text={"Capture"} onClick={capture} />
-            <MyButton text={"submit"} type={"POSITIVE"} />
+        <div className="WebcamCapture">
             <Webcam
                 audio={false}
                 ref={webcamRef}
@@ -30,6 +28,8 @@ export const WebcamCapture = ({ imageUpload }) => {
                 videoConstraints={videoConstraints}
                 mirrored={true}
             />
-        </>
+            <MyButton text={"Capture"} onClick={capture} />
+            <MyButton text={"submit"} type={"POSITIVE"} />
+        </div>
     );
 };

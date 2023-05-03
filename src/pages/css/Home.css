@@ -1,6 +1,27 @@
 .Home {
     width: 100%;
     display: flex;
+    flex-direction: column;
     /* align-items: center; */
     justify-content: center;
+}
+
+.Home .menu_wrapper {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.Home .menu_wrapper .right_col {
+    flex-grow: 0.1;
+}
+
+.Home .menu_wrapper .right_col button {
+    width: 100%;
+}
+.Home .bottom_container {
+    display: flex;
 }
