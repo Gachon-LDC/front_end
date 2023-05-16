@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
 import video from "../assets/ditto720main.mp4";
 import video2 from "../assets/dancerMain.mp4";
+import video3 from "../assets/dancerMain.mov";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -64,7 +65,7 @@ const Login = () => {
 
     return (
         <div className="Login">
-            <video className="main_vid" autoPlay={true} muted={true} loop={true} playsInline={true} src={video2} />
+            <video className="main_vid" autoPlay={true} muted={true} loop={true} playsInline={true} src={video3} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Sign Up</Modal.Title>
