@@ -9,6 +9,7 @@ import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
+import { AuthenticationContextProvider } from "./services/authentication/authentication.context";
 
 const reducer = (state, action) => {
     let newState = [];
@@ -26,9 +27,7 @@ const reducer = (state, action) => {
         }
         case "EDIT": {
             console.log(action.data);
-            newState = state.map((it) =>
-                it.id === action.data.id ? { ...action.data } : it
-            );
+            newState = state.map((it) => (it.id === action.data.id ? { ...action.data } : it));
             break;
         }
         default:
@@ -52,9 +51,7 @@ function App() {
     useEffect(() => {
         const localData = localStorage.getItem("data");
         if (localData) {
-            const diaryList = JSON.parse(localData).sort(
-                (a, b) => parseInt(b.id) - parseInt(a.id)
-            );
+            const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id));
 
             if (diaryList.length >= 1) {
                 dataId.current = parseInt(diaryList[0].id) + 1;
@@ -95,25 +92,24 @@ function App() {
         });
     };
     return (
-        <DiaryStateContext.Provider value={data}>
-            <DiaryDispatchContext.Provider
-                value={{ onCreate, onEdit, onRemove }}
-            >
-                <BrowserRouter>
-                    <div className="App">
-                        <Routes>
-                            <Route path="/" element={<Login />} />
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/new" element={<New />} />
-                            <Route path="/edit/:id" element={<Edit />} />
-                            <Route path="/post/:id" element={<Post />} />
-                            // colon을 통해 id값을 전달 할 수있다. 대신 id를
-                            무조건 받는 형식이다
-                        </Routes>
-                    </div>
-                </BrowserRouter>
-            </DiaryDispatchContext.Provider>
-        </DiaryStateContext.Provider>
+        <AuthenticationContextProvider>
+            <DiaryStateContext.Provider value={data}>
+                <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
+                    <BrowserRouter>
+                        <div className="App">
+                            <Routes>
+                                <Route path="/" element={<Login />} />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/new" element={<New />} />
+                                <Route path="/edit/:id" element={<Edit />} />
+                                <Route path="/post/:id" element={<Post />} />
+                                // colon을 통해 id값을 전달 할 수있다. 대신 id를 무조건 받는 형식이다
+                            </Routes>
+                        </div>
+                    </BrowserRouter>
+                </DiaryDispatchContext.Provider>
+            </DiaryStateContext.Provider>
+        </AuthenticationContextProvider>
     );
 }
 

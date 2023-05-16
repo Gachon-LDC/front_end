@@ -33,22 +33,6 @@ const PostList = ({ postList }) => {
 
     return (
         <div className="PostList">
-            <div className="menu_wrapper">
-                <div className="left_col">
-                    <ControlMenu
-                        value={sortType}
-                        onChange={setSortType}
-                        optionList={sortOptionList}
-                    />
-                </div>
-                <div className="right_col">
-                    <MyButton
-                        type={"POSITIVE"}
-                        text={"New Post"}
-                        onClick={() => navigate("/new")}
-                    />
-                </div>
-            </div>
             {postList.map((it) => (
                 <PostItem key={it.id} {...it} />
             ))}
