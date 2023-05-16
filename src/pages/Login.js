@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
 import video from "../assets/ditto720main.mp4";
+import video2 from "../assets/dancerMain.mp4";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -10,7 +11,7 @@ import Modal from "react-bootstrap/Modal";
 import { AuthenticationContext } from "../services/authentication/authentication.context";
 
 const Login = () => {
-    const { registerHandler } = useContext(AuthenticationContext);
+    const { registerHandler, onLogin, isLogin } = useContext(AuthenticationContext);
 
     //login states
     const [username, setUsername] = useState("");
@@ -25,20 +26,19 @@ const Login = () => {
     //Signup States
     const [suUsername, setSuUsername] = useState("");
     const [suPassword, setSuPassword] = useState("");
+    const [suPassword2, setSuPassword2] = useState("");
     const [suFullname, setSuFullname] = useState("");
     const [suEmail, setSuEmail] = useState("");
 
     const navigate = useNavigate();
 
     const handleLogin = (event) => {
-        event.preventDefault();
-        // Perform login logic here
-        setLoggedIn(true);
-
-        setTimeout(() => {
-            navigate("/home", { replace: true });
-        }, 500);
+        onLogin(username, password);
     };
+    useEffect(() => {
+        console.log(isLogin);
+        isLogin && navigate("/home");
+    }, [isLogin]);
 
     const handleLogout = () => {
         // Perform logout logic here
@@ -55,12 +55,16 @@ const Login = () => {
     }
 
     const signupHandler = () => {
-        registerHandler(suUsername, suPassword);
+        if (suPassword !== suPassword2) {
+            alert("비밀먼호가 다릅니다.");
+            return;
+        }
+        registerHandler(suUsername, suPassword, setShow);
     };
 
     return (
         <div className="Login">
-            <video className="main_vid" autoPlay={true} muted={true} loop={true} playsInline={true} src={video} />
+            <video className="main_vid" autoPlay={true} muted={true} loop={true} playsInline={true} src={video2} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Sign Up</Modal.Title>
@@ -76,7 +80,7 @@ const Login = () => {
                             onChange={(event) => setSuEmail(event.target.value)}
                         />
                     </InputGroup>
-                    <InputGroup>
+                    {/* <InputGroup>
                         <Form.Control
                             className="signup-fullname"
                             placeholder="Full Name"
@@ -85,8 +89,8 @@ const Login = () => {
                             aria-describedby="basic-addon1"
                             onChange={(event) => setSuFullname(event.target.value)}
                         />
-                    </InputGroup>
-                    <InputGroup>
+                    </InputGroup> */}
+                    {/* <InputGroup>
                         <Form.Control
                             className="signup-username"
                             placeholder="Username"
@@ -95,7 +99,7 @@ const Login = () => {
                             aria-describedby="basic-addon1"
                             onChange={(event) => setSuUsername(event.target.value)}
                         />
-                    </InputGroup>
+                    </InputGroup> */}
                     <InputGroup>
                         <Form.Control
                             type="password"
@@ -105,6 +109,17 @@ const Login = () => {
                             value={suPassword}
                             aria-describedby="basic-addon1"
                             onChange={(event) => setSuPassword(event.target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup>
+                        <Form.Control
+                            type="password"
+                            className="signup-password"
+                            placeholder="Retype Password"
+                            aria-label="Password"
+                            value={suPassword2}
+                            aria-describedby="basic-addon1"
+                            onChange={(event) => setSuPassword2(event.target.value)}
                         />
                     </InputGroup>
                 </Modal.Body>
@@ -137,7 +152,7 @@ const Login = () => {
                     />
                 </InputGroup>
 
-                <Button className="submit-btn" type="submit" variant="outline-primary" size="md" onClick={onsubmit}>
+                <Button className="submit-btn" variant="outline-primary" size="md" onClick={handleLogin}>
                     Log in
                 </Button>
                 <Button className="signin-btn" size="md" variant="outline-primary" onClick={handleShow}>

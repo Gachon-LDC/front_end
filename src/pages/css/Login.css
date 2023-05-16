@@ -7,14 +7,26 @@
     padding-top: 0%;
     height: 100vh;
 }
+
 .main_vid {
-    width: 640px;
+    width: 100%;
     height: 110vh;
     overflow: hidden;
     top: -10%;
     margin: 0px auto;
     position: absolute;
     object-fit: cover;
+}
+@media (min-width: 650px) {
+    .main_vid {
+        width: 1200px;
+    }
+}
+
+@media (max-width: 650px) {
+    .main_vid {
+        width: 90vw;
+    }
 }
 .logo {
     font-size: 2.5em;
