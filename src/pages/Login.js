@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
 import video from "../assets/ditto720main.mp4";
@@ -7,8 +7,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Modal from "react-bootstrap/Modal";
+import { AuthenticationContext } from "../services/authentication/authentication.context";
 
 const Login = () => {
+    const { registerHandler } = useContext(AuthenticationContext);
+
     //login states
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -51,16 +54,13 @@ const Login = () => {
         );
     }
 
+    const signupHandler = () => {
+        registerHandler(suUsername, suPassword);
+    };
+
     return (
         <div className="Login">
-            <video
-                className="main_vid"
-                autoPlay={true}
-                muted={true}
-                loop={true}
-                playsInline={true}
-                src={video}
-            />
+            <video className="main_vid" autoPlay={true} muted={true} loop={true} playsInline={true} src={video} />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Sign Up</Modal.Title>
@@ -83,9 +83,7 @@ const Login = () => {
                             aria-label="Full Name"
                             value={suFullname}
                             aria-describedby="basic-addon1"
-                            onChange={(event) =>
-                                setSuFullname(event.target.value)
-                            }
+                            onChange={(event) => setSuFullname(event.target.value)}
                         />
                     </InputGroup>
                     <InputGroup>
@@ -95,9 +93,7 @@ const Login = () => {
                             aria-label="Username"
                             value={suUsername}
                             aria-describedby="basic-addon1"
-                            onChange={(event) =>
-                                setSuUsername(event.target.value)
-                            }
+                            onChange={(event) => setSuUsername(event.target.value)}
                         />
                     </InputGroup>
                     <InputGroup>
@@ -108,14 +104,12 @@ const Login = () => {
                             aria-label="Password"
                             value={suPassword}
                             aria-describedby="basic-addon1"
-                            onChange={(event) =>
-                                setSuPassword(event.target.value)
-                            }
+                            onChange={(event) => setSuPassword(event.target.value)}
                         />
                     </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={signupHandler}>
                         Sign Up
                     </Button>
                 </Modal.Footer>
@@ -143,21 +137,10 @@ const Login = () => {
                     />
                 </InputGroup>
 
-                <Button
-                    className="submit-btn"
-                    type="submit"
-                    variant="outline-primary"
-                    size="md"
-                    onClick={onsubmit}
-                >
+                <Button className="submit-btn" type="submit" variant="outline-primary" size="md" onClick={onsubmit}>
                     Log in
                 </Button>
-                <Button
-                    className="signin-btn"
-                    size="md"
-                    variant="outline-primary"
-                    onClick={handleShow}
-                >
+                <Button className="signin-btn" size="md" variant="outline-primary" onClick={handleShow}>
                     Sign Up
                 </Button>
             </form>
