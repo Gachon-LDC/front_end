@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-    const { onLogout, isLogin, userEmail } = useContext(AuthenticationContext);
+    const { onLogout, isLogin, userData } = useContext(AuthenticationContext);
 
     const navigate = useNavigate();
 
@@ -15,10 +15,14 @@ export const Profile = () => {
             navigate("/");
         }
     }, [isLogin]);
+
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
     return (
         <div className="Profile">
             <p>사진</p>
-            <p>{userEmail}</p>
+            <p>{userData.email}</p>
             <p>마이페이지</p>
             <p>설정</p>
             <Button variant="outline-warning" onClick={onLogout}>
