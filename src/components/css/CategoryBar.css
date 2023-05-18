@@ -1,0 +1,8 @@
+.CategoryBar {
+    display: flex;
+    margin-left: 40px;
+}
+.CategoryBar .category {
+    margin-left: 16px;
+    font-size: 1.1em;
+}
