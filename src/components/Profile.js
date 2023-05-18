@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-    const { onLogout, isLogin } = useContext(AuthenticationContext);
+    const { onLogout, isLogin, userEmail } = useContext(AuthenticationContext);
 
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export const Profile = () => {
     return (
         <div className="Profile">
             <p>사진</p>
-            <p>이름</p>
+            <p>{userEmail}</p>
             <p>마이페이지</p>
             <p>설정</p>
             <Button variant="outline-warning" onClick={onLogout}>

@@ -11,7 +11,7 @@ export const registerHandler = (email, pwd, setShow) => {
     };
 
     let registerResult = axios
-        .post(`${API_URL}/api/auth/register`, registerData, { "Content-Type": "application/json" })
+        .post(`${API_URL}/api/auth/register`, registerData, { "Content-Type": "text/plain" })
         .then((res) => {
             alert("회원가입에 성공하였습니다!");
             setShow(false);
@@ -19,14 +19,13 @@ export const registerHandler = (email, pwd, setShow) => {
         })
         .catch((err) => {
             if (err.response.status === 409) {
+                console.log(err.response);
                 console.log(err.response.data);
                 console.log(err.response.status);
-                console.log(err.response.headers);
                 alert("이미 존재하는 계정입니다.");
             } else {
                 console.log(err.response.data);
                 console.log(err.response.status);
-                console.log(err.response.headers);
             }
         });
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
 import video from "../assets/ditto720main.mp4";
-import video2 from "../assets/dancerMain.mp4";
+
 import video3 from "../assets/dancerMain.mov";
 
 import Button from "react-bootstrap/Button";
@@ -81,26 +81,6 @@ const Login = () => {
                             onChange={(event) => setSuEmail(event.target.value)}
                         />
                     </InputGroup>
-                    {/* <InputGroup>
-                        <Form.Control
-                            className="signup-fullname"
-                            placeholder="Full Name"
-                            aria-label="Full Name"
-                            value={suFullname}
-                            aria-describedby="basic-addon1"
-                            onChange={(event) => setSuFullname(event.target.value)}
-                        />
-                    </InputGroup> */}
-                    {/* <InputGroup>
-                        <Form.Control
-                            className="signup-username"
-                            placeholder="Username"
-                            aria-label="Username"
-                            value={suUsername}
-                            aria-describedby="basic-addon1"
-                            onChange={(event) => setSuUsername(event.target.value)}
-                        />
-                    </InputGroup> */}
                     <InputGroup>
                         <Form.Control
                             type="password"
@@ -144,6 +124,7 @@ const Login = () => {
                 </InputGroup>
                 <InputGroup>
                     <Form.Control
+                        type="password"
                         className="password"
                         placeholder="Password"
                         aria-label="Password"
