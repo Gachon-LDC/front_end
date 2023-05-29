@@ -16,11 +16,13 @@ export const CategoryBar = () => {
 
     return (
         <div className="CategoryBar">
-            {categories.map((it) => (
-                <Button className="category" variant="outline-success" key={it.uid} uid={it.uid} onClick={() => {}}>
-                    {it.title}
-                </Button>
-            ))}
+            {categories == undefined
+                ? null
+                : categories.map((it) => (
+                      <Button className="category" variant="outline-success" key={it.uid} uid={it.uid} onClick={() => {}}>
+                          {it.title}
+                      </Button>
+                  ))}
         </div>
     );
 };

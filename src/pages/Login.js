@@ -37,7 +37,6 @@ const Login = () => {
         onLogin(username, password);
     };
     useEffect(() => {
-        console.log(isLogin);
         isLogin && navigate("/home");
     }, [isLogin]);
 

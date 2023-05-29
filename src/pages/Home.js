@@ -30,9 +30,9 @@ const Home = () => {
         }
     }, [diaryList]);
 
-    useEffect(() => {
-        isLogin || navigate("/");
-    }, [isLogin]);
+    // useEffect(() => {
+    //     isLogin || navigate("/");
+    // }, [isLogin]);
 
     return (
         <div className="Home">

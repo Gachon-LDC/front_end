@@ -10,9 +10,8 @@ import ReactPlayer from "react-player";
 import Vid from "../../src/pages/videoplayback.mp4";
 
 import { AiOutlinePlayCircle, AiOutlinePauseCircle } from "react-icons/ai";
-import CommentList from "../components/CommentList";
 
-const Post = () => {
+const Learn = () => {
     //탭 이름을 바꾸는 코드.
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
@@ -72,27 +71,20 @@ const Post = () => {
                             setOpenCamera(!openCamera);
                         }}
                     />
-                    <div onClick={onStartVid}>
-                        {vidState.playing ? (
-                            <div>
-                                pause
-                                <AiOutlinePauseCircle size={60} />
-                            </div>
-                        ) : (
-                            <div>
-                                Play
-                                <AiOutlinePlayCircle size={60} />
-                            </div>
-                        )}
+                    {data.file.image && <img className="content" src={source} width="600" alt="Blob URL Image" />}
+                    {data.file.video && <video className="content" src={source} controls width="350px" />}
+
+                    <div className="VideoWrapper">
+                        {openCamera && <WebcamCapture />}
+                        {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
                     </div>
-                    <CommentList />
                 </article>
             </div>
         );
     }
 };
 
-export default Post;
+export default Learn;
 
 const Wrap = styled.div`
     border: 1px solid gray;

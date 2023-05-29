@@ -10,11 +10,11 @@ export const Profile = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (isLogin == false) {
-            navigate("/");
-        }
-    }, [isLogin]);
+    // useEffect(() => {
+    //     if (isLogin == false) {
+    //         navigate("/");
+    //     }
+    // }, [isLogin]);
 
     useEffect(() => {
         console.log(userData);
@@ -22,7 +22,7 @@ export const Profile = () => {
     return (
         <div className="Profile">
             <p>사진</p>
-            <p>{userData.email}</p>
+            {userData ? null : <p> userData.emmil</p>}
             <p>마이페이지</p>
             <p>설정</p>
             <Button variant="outline-warning" onClick={onLogout}>

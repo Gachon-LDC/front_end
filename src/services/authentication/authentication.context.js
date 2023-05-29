@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 import { registerHandler, loginHandler } from "./authentication.service";
 
@@ -8,6 +8,11 @@ export const AuthenticationContextProvider = ({ children }) => {
     const [isLogin, setIsLogin] = useState(localStorage.getItem("isLoggedIn"));
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
 
+    useEffect(() => {
+        if (userData == null) {
+            setUserData({ email: "null" });
+        }
+    }, [userData]);
     const onLogin = async (id, pwd) => {
         const loginRes = await loginHandler(id, pwd);
         console.log(loginRes);
