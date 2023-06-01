@@ -1,50 +1,61 @@
 /* Post */
 
 .Post {
-}
-
-.Post section {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    margin-bottom: 100px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-}
-
-.Post h4 {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.Post .Post_img_wrapper {
-    background-color: #ececec;
-    width: 250px;
-    height: 250px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
-
-.Post .videoWrapper {
+.Post .body {
     display: flex;
+    align-items: center;
 }
-.Post video {
-    width: 400px;
+.Post .videoWrapper {
+    border-radius: 40px;
+    /* background-color: red; */
+    overflow: hidden;
+    width: 485px;
+    height: 670px;
+    display: flex;
+    align-items: center;
+}
+.Post .video {
+    width: 720px;
     height: 720px;
 }
-.video {
-}
-/*  */
 
-.Home .VideoWrapper {
+.Post .controller {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: rgb(240, 248, 255);
+    width: 200px;
+    padding: 40px;
+    margin: 40px;
+    border-radius: 20px;
+}
+
+.Post .playBtnWrapper {
+    margin: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.Post .learnBtnWrapper {
+    margin: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.Post .learnIcon {
+    width: 60px;
 }
 
 .Video_Uploader {

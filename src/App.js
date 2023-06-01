@@ -9,8 +9,10 @@ import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
+import Learn from "./pages/Learn";
 import { AuthenticationContextProvider } from "./services/authentication/authentication.context";
 import { DanceCategoryContextProvider } from "./services/danceCategory/danceCategory.context";
+import CommentList from "./components/CommentList";
 
 const reducer = (state, action) => {
     let newState = [];
@@ -104,7 +106,10 @@ function App() {
                                     <Route path="/home" element={<Home />} />
                                     <Route path="/new" element={<New />} />
                                     <Route path="/edit/:id" element={<Edit />} />
-                                    <Route path="/post/:id" element={<Post />} />
+                                    <Route path="/post/:id" element={<Post />}>
+                                        <Route index element={<CommentList />} />
+                                        <Route path="learn" element={<Learn />} />
+                                    </Route>
                                     // colon을 통해 id값을 전달 할 수있다. 대신 id를 무조건 받는 형식이다
                                 </Routes>
                             </div>

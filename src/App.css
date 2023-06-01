@@ -337,3 +337,8 @@ header button {
 .Video_Uploader .content {
     padding: 20px;
 }
+
+/* MyHeader */
+.MyHeader {
+    width: 100%;
+}

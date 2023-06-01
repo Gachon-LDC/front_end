@@ -58,27 +58,19 @@ const Learn = () => {
         // localStorage.setItem("video", require("./videoplayback.mp4"));
         return (
             <div className="Post">
-                <MyHeader
-                    headText={data.title}
-                    leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
-                    rightChild={<MyButton text={"수정하기"} onClick={() => navigate(`/edit/${data.id}`)} />}
+                <MyButton
+                    text={"toggle camera"}
+                    onClick={() => {
+                        setOpenCamera(!openCamera);
+                    }}
                 />
-                <article className="videoWrapper">
-                    <ReactPlayer className="video" url={Vid} width="400px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
-                    <MyButton
-                        text={"toggle camera"}
-                        onClick={() => {
-                            setOpenCamera(!openCamera);
-                        }}
-                    />
-                    {data.file.image && <img className="content" src={source} width="600" alt="Blob URL Image" />}
-                    {data.file.video && <video className="content" src={source} controls width="350px" />}
+                {data.file.image && <img className="content" src={source} width="600" alt="Blob URL Image" />}
+                {data.file.video && <video className="content" src={source} controls width="350px" />}
 
-                    <div className="VideoWrapper">
-                        {openCamera && <WebcamCapture />}
-                        {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
-                    </div>
-                </article>
+                <div className="VideoWrapper">
+                    {openCamera && <WebcamCapture />}
+                    {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
+                </div>
             </div>
         );
     }
