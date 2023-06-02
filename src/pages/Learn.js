@@ -30,6 +30,8 @@ const Learn = () => {
     const [openCamera, setOpenCamera] = useState(true);
     const [timer, setTimer] = useState(0);
     const [learning, setLearning] = useState(false);
+    const [sendStart, setSendStart] = useState(false);
+    const [learnComplete, setLearnComplete] = useState(true);
     const player = useRef();
 
     const [vidState, setVidState] = useState({
@@ -50,6 +52,7 @@ const Learn = () => {
         player.current.seekTo(0);
         setTimer(5);
         setLearning(true);
+        setLearnComplete(false);
     };
     useEffect(() => {
         const interval = setInterval(() => {
@@ -59,6 +62,7 @@ const Learn = () => {
             clearInterval(interval);
             setOpenCamera(true);
             setVidState({ ...vidState, playing: true, loop: false });
+            setSendStart(true);
         }
         return () => clearInterval(interval);
     }, [timer]);
@@ -78,6 +82,15 @@ const Learn = () => {
             setSource(data.file.data);
         }
     }, [data]);
+
+    useEffect(() => {
+        console.log(vidState.played);
+        if (vidState.played === 1) {
+            setLearning(false);
+            setSendStart(false);
+            setLearnComplete(true);
+        }
+    }, [vidState.played]);
 
     if (!data) {
         return <div className="Post">로딩중입니다...</div>;
@@ -102,6 +115,7 @@ const Learn = () => {
                             loop={vidState.loop}
                             duration={vidState.duration}
                             ref={player}
+                            onProgress={(e) => setVidState({ ...vidState, played: e.played })}
                         />
                     </div>
                     <div className="controller">
@@ -121,7 +135,7 @@ const Learn = () => {
                                 <h1>{timer}</h1>
                             </div>
                         )}
-                        <WebcamCapture />
+                        <WebcamCapture sendStart={sendStart} learnComplete={learnComplete} />
                     </div>
                 </div>
                 <div>재생속도 : {vidState.playbackRate}</div>
