@@ -6,19 +6,23 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-    const { onLogout, isLogin } = useContext(AuthenticationContext);
+    const { onLogout, isLogin, userData } = useContext(AuthenticationContext);
 
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     if (isLogin == false) {
+    //         navigate("/");
+    //     }
+    // }, [isLogin]);
+
     useEffect(() => {
-        if (isLogin == false) {
-            navigate("/");
-        }
-    }, [isLogin]);
+        console.log(userData);
+    }, [userData]);
     return (
         <div className="Profile">
             <p>사진</p>
-            <p>이름</p>
+            {userData ? null : <p> userData.emmil</p>}
             <p>마이페이지</p>
             <p>설정</p>
             <Button variant="outline-warning" onClick={onLogout}>

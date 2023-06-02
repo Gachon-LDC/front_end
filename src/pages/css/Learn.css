@@ -1,0 +1,26 @@
+.Learn .myVidWrapper {
+    display: flex;
+    margin-top: 40px;
+    width: 40%;
+    height: 670px;
+    overflow: hidden;
+    border-radius: 40px;
+}
+
+.Learn .timer {
+    position: absolute;
+    z-index: 5;
+    width: 437.29px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 40px;
+    height: 670px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.WebcamCapture {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

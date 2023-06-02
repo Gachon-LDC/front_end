@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Outlet, Route, useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../App";
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
+import CommentList from "../components/CommentList";
 import styled from "styled-components";
 import { WebcamCapture } from "../components/WebcamCapture";
 import "./css/Post.css";
 import ReactPlayer from "react-player";
 import Vid from "../../src/pages/videoplayback.mp4";
 
+import { AiOutlinePlayCircle, AiOutlinePauseCircle, AiOutlineVideoCamera } from "react-icons/ai";
+import LearnIcon from "../assets/learn.png";
+
 const Post = () => {
     //탭 이름을 바꾸는 코드.
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
-        titleElement.innerHTML = `number${id}`;
+        titleElement.innerHTML = `post${id}`;
     }, []);
 
     const { id } = useParams();
@@ -37,13 +41,11 @@ const Post = () => {
         setVidState({ ...vidState, playing: !vidState.playing });
     };
     useEffect(() => {
-        const targetDiary = diaryList.find(
-            (it) => parseInt(it.id) === parseInt(id)
-        );
+        const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
         if (targetDiary) {
             setData(targetDiary);
         } else {
-            navigate("/", { replace: true });
+            navigate("/home", { replace: true });
         }
     }, [id, diaryList]);
     useEffect(() => {
@@ -55,62 +57,42 @@ const Post = () => {
     if (!data) {
         return <div className="Post">로딩중입니다...</div>;
     } else {
-        // localStorage.setItem("video", require("./videoplayback.mp4"));
         return (
             <div className="Post">
                 <MyHeader
                     headText={data.title}
-                    leftChild={
-                        <MyButton
-                            text={"뒤로가기"}
-                            onClick={() => navigate(-1)}
-                        />
-                    }
-                    rightChild={
-                        <MyButton
-                            text={"수정하기"}
-                            onClick={() => navigate(`/edit/${data.id}`)}
-                        />
-                    }
+                    leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
+                    rightChild={<MyButton text={"수정하기"} onClick={() => navigate(`/edit/${data.id}`)} />}
                 />
-                <article className="videoWrapper">
-                    <MyButton onClick={onStartVid} text={"start vid"} />
-                    <ReactPlayer
-                        className="video"
-                        url={Vid}
-                        width="400px"
-                        height="720px"
-                        muted={vidState.muted}
-                        playing={vidState.playing}
-                        loop={true}
-                    />
-                    <MyButton
-                        text={"toggle camera"}
-                        onClick={() => {
-                            setOpenCamera(!openCamera);
-                        }}
-                    />
-                    {data.file.image && (
-                        <img
-                            className="content"
-                            src={source}
-                            width="600"
-                            alt="Blob URL Image"
-                        />
-                    )}
-                    {data.file.video && (
-                        <video
-                            className="content"
-                            src={source}
-                            controls
-                            width="350px"
-                        />
-                    )}
-                    <div className="VideoWrapper">
-                        {openCamera && <WebcamCapture />}
-                        {/* 위 컴포넌트가 사진찍고 저장하는 컴포넌트임 */}
+                <div className="body">
+                    <div className="videoWrapper">
+                        <ReactPlayer url={Vid} width="485px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
                     </div>
-                </article>
+                    <div className="controller">
+                        <div onClick={onStartVid}>
+                            {vidState.playing ? (
+                                <div className="playBtnWrapper">
+                                    <AiOutlinePauseCircle size={60} /> <div>멈춤</div>
+                                </div>
+                            ) : (
+                                <div className="playBtnWrapper">
+                                    <AiOutlinePlayCircle size={60} /> <div>재생</div>
+                                </div>
+                            )}
+                        </div>
+                        <div className="learnBtnWrapper" onClick={() => navigate(`/learn/${id}`)}>
+                            <img className="learnIcon" src={LearnIcon} />
+                            <div>배우기</div>
+                        </div>
+                        <div className="learnBtnWrapper">
+                            <AiOutlineVideoCamera size={60} />
+                            <div>촬영하기</div>
+                        </div>
+                    </div>
+                    {/* <Outlet/> */}
+
+                    <CommentList />
+                </div>
             </div>
         );
     }

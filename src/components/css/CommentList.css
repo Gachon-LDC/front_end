@@ -1,0 +1,16 @@
+.CommentList {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CommentList .commentInput {
+    width: 100%;
+    margin-top: 24px;
+}
+
+.CommentList input {
+    width: 100%;
+}
