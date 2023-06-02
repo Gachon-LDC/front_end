@@ -19,10 +19,8 @@
     height: 670px;
     display: flex;
     align-items: center;
-}
-.Post .video {
-    width: 720px;
-    height: 720px;
+    margin-top: 40px;
+    padding: 0;
 }
 
 .Post .controller {
@@ -67,11 +65,9 @@
 .Video_Uploader .content {
     padding: 20px;
 }
-.my_video {
-    width: 400px;
-}
+
 .WebcamCapture {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 100%;
 }

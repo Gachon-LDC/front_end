@@ -21,15 +21,9 @@ export const WebcamCapture = ({ imageUpload }) => {
     }, [webcamRef]);
     return (
         <div className="WebcamCapture">
-            <Webcam
-                audio={false}
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                videoConstraints={videoConstraints}
-                mirrored={true}
-            />
-            <MyButton text={"Capture"} onClick={capture} />
-            <MyButton text={"submit"} type={"POSITIVE"} />
+            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={videoConstraints} mirrored={true} />
+            {/* <MyButton text={"Capture"} onClick={capture} />
+            <MyButton text={"submit"} type={"POSITIVE"} /> */}
         </div>
     );
 };

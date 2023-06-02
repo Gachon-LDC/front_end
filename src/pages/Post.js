@@ -66,7 +66,7 @@ const Post = () => {
                 />
                 <div className="body">
                     <div className="videoWrapper">
-                        <ReactPlayer className="video" url={Vid} width="720px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
+                        <ReactPlayer url={Vid} width="485px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
                     </div>
                     <div className="controller">
                         <div onClick={onStartVid}>
@@ -80,7 +80,7 @@ const Post = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="learnBtnWrapper" onClick={() => navigate(`/post/${id}/learn/`)}>
+                        <div className="learnBtnWrapper" onClick={() => navigate(`/learn/${id}`)}>
                             <img className="learnIcon" src={LearnIcon} />
                             <div>배우기</div>
                         </div>
@@ -90,6 +90,7 @@ const Post = () => {
                         </div>
                     </div>
                     {/* <Outlet/> */}
+
                     <CommentList />
                 </div>
             </div>
