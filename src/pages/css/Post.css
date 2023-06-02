@@ -66,8 +66,4 @@
     padding: 20px;
 }
 
-.WebcamCapture {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
+

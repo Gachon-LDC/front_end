@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../App";
 import MyButton from "../components/MyButton";
@@ -29,6 +29,8 @@ const Learn = () => {
     const [source, setSource] = useState();
     const [openCamera, setOpenCamera] = useState(true);
     const [timer, setTimer] = useState(0);
+    const [learning, setLearning] = useState(false);
+    const player = useRef();
 
     const [vidState, setVidState] = useState({
         playing: false, // 재생중인지
@@ -39,16 +41,28 @@ const Learn = () => {
         played: 0, // 재생의 정도 (value)
         seeking: false, // 재생바를 움직이고 있는지
         duration: 0, // 전체 시간
+        loop: true,
     });
-    const onStartVid = () => {
-        setVidState({ ...vidState, playing: !vidState.playing });
-    };
 
     const onLearnStart = () => {
         setOpenCamera(false);
         setVidState({ ...vidState, playing: false });
-        setTimeout(() => {}, 5000);
+        player.current.seekTo(0);
+        setTimer(5);
+        setLearning(true);
     };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimer((timer) => timer - 1);
+        }, 1000);
+        if (timer === 0 && learning === true) {
+            clearInterval(interval);
+            setOpenCamera(true);
+            setVidState({ ...vidState, playing: true, loop: false });
+        }
+        return () => clearInterval(interval);
+    }, [timer]);
+
     useEffect(() => {
         const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
         if (targetDiary) {
@@ -57,12 +71,14 @@ const Learn = () => {
             navigate("/", { replace: true });
         }
     }, [id, diaryList]);
+
     useEffect(() => {
         if (data) {
             console.log(data);
             setSource(data.file.data);
         }
     }, [data]);
+
     if (!data) {
         return <div className="Post">로딩중입니다...</div>;
     } else {
@@ -75,23 +91,23 @@ const Learn = () => {
                 />
                 <div className="body">
                     <div className="videoWrapper">
-                        <ReactPlayer playbackRate={vidState.playbackRate} url={Vid} width="720px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
+                        <ReactPlayer
+                            playbackRate={vidState.playbackRate}
+                            url={Vid}
+                            width="100%"
+                            height="100%"
+                            muted={vidState.muted}
+                            playing={vidState.playing}
+                            played={vidState.played}
+                            loop={vidState.loop}
+                            duration={vidState.duration}
+                            ref={player}
+                        />
                     </div>
                     <div className="controller">
-                        <div onClick={onStartVid}>
-                            {vidState.playing ? (
-                                <div className="playBtnWrapper">
-                                    <AiOutlinePauseCircle size={60} /> <div>멈춤</div>
-                                </div>
-                            ) : (
-                                <div className="playBtnWrapper">
-                                    <AiOutlinePlayCircle size={60} /> <div>재생</div>
-                                </div>
-                            )}
-                        </div>
                         <div className="learnBtnWrapper" onClick={() => onLearnStart()}>
                             <img className="learnIcon" src={LearnIcon} />
-                            <div>배우기</div>
+                            <div>배우기 시작</div>
                         </div>
                         <div className="learnBtnWrapper">
                             <AiOutlineVideoCamera size={60} />
@@ -99,10 +115,16 @@ const Learn = () => {
                         </div>
                     </div>
 
-                    <div className="myVidWrapper">{openCamera ? <WebcamCapture /> : <h1>{timer}</h1>}</div>
-
-                    {/* <CommentList /> */}
+                    <div className="myVidWrapper">
+                        {openCamera || (
+                            <div className="timer">
+                                <h1>{timer}</h1>
+                            </div>
+                        )}
+                        <WebcamCapture />
+                    </div>
                 </div>
+                <div>재생속도 : {vidState.playbackRate}</div>
                 <ButtonGroup>
                     <Button variant="outline-primary" onClick={() => setVidState({ ...vidState, playbackRate: 0.5 })}>
                         0.5x
