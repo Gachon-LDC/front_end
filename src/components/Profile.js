@@ -17,16 +17,17 @@ export const Profile = () => {
     useEffect(() => {
         console.log(userData);
     }, [userData]);
+
     return (
         <div className="Profile">
             <p>사진</p>
-            {userData ? null : <p> userData.emmil</p>}
+            <p>{userData.email}</p>
             <p>마이페이지</p>
             <p>설정</p>
-            <Button variant="outline-warning" onClick={onLogout}>
+            <Button className={"logoutBtn"} variant="outline-warning" onClick={onLogout}>
                 로그아웃
             </Button>
-            <Button variant="outline-danger" onClick={onWithdrawl}>
+            <Button className={"withdrawlBtn"} variant="outline-danger" onClick={onWithdrawl}>
                 회원탈퇴
             </Button>
         </div>

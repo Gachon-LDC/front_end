@@ -4,39 +4,14 @@ import { useNavigate } from "react-router-dom";
 import "./css/PostList.css";
 import PostItem from "./PostItem";
 
-const sortOptionList = [
-    { value: "latest", name: "최신순" },
-    { value: "oldest", name: "오래된순" },
-];
-
-const ControlMenu = React.memo(({ value, onChange, optionList }) => {
-    return (
-        <select
-            className="ControlMenu"
-            value={value}
-            onChange={(e) => {
-                onChange(e.target.value);
-            }}
-        >
-            {optionList.map((it, idx) => (
-                <option value={it.value} key={idx}>
-                    {it.name}
-                </option>
-            ))}
-        </select>
-    );
-});
-
 const PostList = ({ postList }) => {
     const navigate = useNavigate();
-    const [sortType, setSortType] = useState("latest");
 
     return (
         <div className="PostList">
             {postList.map((it) => (
-                <PostItem key={it.id} {...it} />
+                <PostItem key={it.video_id} title={it.title} dance={it.dance} content={it.ontent} />
             ))}
-            {postList.length % 2 === 1 && <div className="spacer" />}
         </div>
     );
 };

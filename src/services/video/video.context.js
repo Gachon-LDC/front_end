@@ -1,9 +1,9 @@
 import React, { createContext } from "react";
 
-import { CreateSurvey } from "./video.service";
+import { getVideos } from "./video.service";
 
 export const VideoContext = createContext();
 
 export const VideoContextProvider = ({ children }) => {
-    return <VideoContext.Provider value={{}}>{children}</VideoContext.Provider>;
+    return <VideoContext.Provider value={{ getVideos }}>{children}</VideoContext.Provider>;
 };

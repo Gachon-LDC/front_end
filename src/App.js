@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Learn from "./pages/Learn";
 import { AuthenticationContextProvider } from "./services/authentication/authentication.context";
 import { DanceCategoryContextProvider } from "./services/danceCategory/danceCategory.context";
+import { VideoContextProvider } from "./services/video/video.context";
 
 const reducer = (state, action) => {
     let newState = [];
@@ -96,23 +97,25 @@ function App() {
     return (
         <AuthenticationContextProvider>
             <DanceCategoryContextProvider>
-                <DiaryStateContext.Provider value={data}>
-                    <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
-                        <BrowserRouter>
-                            <div className="App">
-                                <Routes>
-                                    <Route path="/" element={<Login />} />
-                                    <Route path="/home" element={<Home />} />
-                                    <Route path="/new" element={<New />} />
-                                    <Route path="/edit/:id" element={<Edit />} />
-                                    <Route path="/post/:id" element={<Post />} />
-                                    <Route path="/learn/:id" element={<Learn />} />
-                                    // colon을 통해 id값을 전달 할 수있다. 대신 id를 무조건 받는 형식이다
-                                </Routes>
-                            </div>
-                        </BrowserRouter>
-                    </DiaryDispatchContext.Provider>
-                </DiaryStateContext.Provider>
+                <VideoContextProvider>
+                    <DiaryStateContext.Provider value={data}>
+                        <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
+                            <BrowserRouter>
+                                <div className="App">
+                                    <Routes>
+                                        <Route path="/" element={<Login />} />
+                                        <Route path="/home" element={<Home />} />
+                                        <Route path="/new" element={<New />} />
+                                        <Route path="/edit/:id" element={<Edit />} />
+                                        <Route path="/post/:id" element={<Post />} />
+                                        <Route path="/learn/:id" element={<Learn />} />
+                                        // colon을 통해 id값을 전달 할 수있다. 대신 id를 무조건 받는 형식이다
+                                    </Routes>
+                                </div>
+                            </BrowserRouter>
+                        </DiaryDispatchContext.Provider>
+                    </DiaryStateContext.Provider>
+                </VideoContextProvider>
             </DanceCategoryContextProvider>
         </AuthenticationContextProvider>
     );
