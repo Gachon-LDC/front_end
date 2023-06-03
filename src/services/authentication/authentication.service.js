@@ -60,25 +60,46 @@ export const loginHandler = (email, pwd) => {
 /* Logout */
 
 export const logoutHandler = (email, pwd) => {
-    const loginData = {
+    const data = {
         email: email,
         pwd: pwd,
     };
 
-    let logoutRes = axios
-        .delete(`${API_URL}/api/auth`, loginData, { "Content-Type": "application/json" })
+    console.log(data);
+    let res = axios
+        .delete(`${API_URL}/api/auth`, { data })
         .then((res) => {
-            console.log(res.data);
-            console.log(res.status);
-            alert(res.data);
+            alert(res.status);
             return res;
         })
         .catch((err) => {
-            console.log(err.response.data);
+            alert(err.status);
             console.log(err);
-            alert(err.response.data);
             return err;
         });
 
-    return logoutRes;
+    return res;
+};
+
+/* Withdrawal user (회원탈퇴) */
+export const withdrawalHandler = (email, pwd) => {
+    const data = {
+        email: email,
+        pwd: pwd,
+    };
+
+    console.log(data);
+    let withdrawalRes = axios
+        .delete(`${API_URL}/api/auth/register`, data)
+        .then((res) => {
+            alert(res.status);
+            return res;
+        })
+        .catch((err) => {
+            alert(err.status);
+            console.log(err);
+            return err;
+        });
+
+    return withdrawalRes;
 };

@@ -6,15 +6,13 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-    const { onLogout, isLogin, userData } = useContext(AuthenticationContext);
+    const { onLogout, isLogin, userData, withdrawalHandler } = useContext(AuthenticationContext);
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (isLogin == false) {
-    //         navigate("/");
-    //     }
-    // }, [isLogin]);
+    const onWithdrawl = () => {
+        if (window.confirm("회원탈퇴 하시겠습니까?") == true) withdrawalHandler(localStorage.getItem("email"), localStorage.getItem("pwd"));
+    };
 
     useEffect(() => {
         console.log(userData);
@@ -27,6 +25,9 @@ export const Profile = () => {
             <p>설정</p>
             <Button variant="outline-warning" onClick={onLogout}>
                 로그아웃
+            </Button>
+            <Button variant="outline-danger" onClick={onWithdrawl}>
+                회원탈퇴
             </Button>
         </div>
     );
