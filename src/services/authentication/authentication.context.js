@@ -15,7 +15,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     }, [userData]);
     const onLogin = async (id, pwd) => {
         const loginRes = await loginHandler(id, pwd);
-        console.log(loginRes);
+        console.log("loginRes : ", loginRes);
         if (loginRes.status == 201) {
             console.log(loginRes.status);
             console.log(loginRes.data);

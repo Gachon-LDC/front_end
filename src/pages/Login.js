@@ -59,7 +59,7 @@ const Login = () => {
             alert("비밀먼호가 다릅니다.");
             return;
         }
-        registerHandler(suUsername, suPassword, setShow);
+        registerHandler(suEmail, suPassword, setShow);
     };
 
     return (
