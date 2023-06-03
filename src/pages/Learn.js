@@ -13,6 +13,7 @@ import Vid from "../../src/pages/videoplayback.mp4";
 import LearnIcon from "../assets/learn.png";
 import CommentList from "../components/CommentList";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
+import { VideoContext } from "../services/video/video.context";
 
 const Learn = () => {
     //탭 이름을 바꾸는 코드.
@@ -45,6 +46,14 @@ const Learn = () => {
         duration: 0, // 전체 시간
         loop: true,
     });
+    const { getVideoById } = useContext(VideoContext);
+
+    const onPageLoad = () => {
+        getVideoById(id, setData);
+    };
+    useEffect(() => {
+        onPageLoad();
+    }, []);
 
     const onLearnStart = () => {
         setOpenCamera(false);
@@ -66,13 +75,6 @@ const Learn = () => {
         }
         return () => clearInterval(interval);
     }, [timer]);
-
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            setSource(data.file.data);
-        }
-    }, [data]);
 
     useEffect(() => {
         console.log(vidState.played);

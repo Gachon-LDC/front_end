@@ -12,5 +12,15 @@
 }
 
 .CommentList input {
+    width: 65%;
+}
+
+.CommentList .commentInputBar {
+    display: flex;
+    margin-top: 20px;
     width: 100%;
+    justify-content: space-between;
+}
+.CommentList .submitBtn {
+    width: 30%;
 }

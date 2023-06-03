@@ -25,3 +25,30 @@ export const getVideoById = async (id, setData) => {
 
     setData(res);
 };
+
+/* Comment */
+
+export const postComment = async (id, comment) => {
+    const body = {
+        content: comment,
+    };
+    const res = await axios
+        .post(`${API_URL}/api/videos/${id}/comment`, body)
+        .then((res) => {
+            console.log("comment res : ", res.data);
+            return res.data;
+        })
+        .catch((err) => console.log(err));
+};
+
+export const getComments = async (id, setData) => {
+    const res = await axios
+        .get(`${API_URL}/api/videos/${id}/comment`)
+        .then((res) => {
+            console.log("comments : ", res.data);
+            return res.data;
+        })
+        .catch((err) => console.log(err));
+
+    setData(res);
+};

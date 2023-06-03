@@ -88,7 +88,7 @@ const Post = () => {
                     </div>
                     {/* <Outlet/> */}
 
-                    <CommentList comments={data.comments} />
+                    <CommentList id={data.video_id} />
                 </div>
             </div>
         );
