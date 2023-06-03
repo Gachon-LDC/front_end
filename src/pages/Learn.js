@@ -14,6 +14,7 @@ import LearnIcon from "../assets/learn.png";
 import CommentList from "../components/CommentList";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { VideoContext } from "../services/video/video.context";
+import { LearnResultModal } from "../components/LearnResultModal";
 
 const Learn = () => {
     //탭 이름을 바꾸는 코드.
@@ -27,12 +28,16 @@ const Learn = () => {
 
     const navigate = useNavigate();
     const [data, setData] = useState();
-    const [source, setSource] = useState();
     const [openCamera, setOpenCamera] = useState(true);
     const [timer, setTimer] = useState(0);
     const [learning, setLearning] = useState(false);
     const [sendStart, setSendStart] = useState(false);
     const [learnComplete, setLearnComplete] = useState(true);
+    const [resultModalShow, setResultModalShow] = useState(false);
+
+    const handleClose = () => {
+        setResultModalShow(false);
+    };
     const player = useRef();
 
     const [vidState, setVidState] = useState({
@@ -82,6 +87,7 @@ const Learn = () => {
             setLearning(false);
             setSendStart(false);
             setLearnComplete(true);
+            setResultModalShow(true);
         }
     }, [vidState.played]);
 
@@ -90,6 +96,7 @@ const Learn = () => {
     } else {
         return (
             <div className="Post Learn">
+                <LearnResultModal show={resultModalShow} handleClose={handleClose} />
                 <MyHeader
                     headText={data.title}
                     leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
