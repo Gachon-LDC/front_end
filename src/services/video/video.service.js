@@ -13,3 +13,15 @@ export const getVideos = async (setData) => {
 
     setData(res);
 };
+
+export const getVideoById = async (id, setData) => {
+    const res = await axios
+        .get(`${API_URL}/api/videos/${id}`)
+        .then((res) => {
+            console.log("getVideoId : ", res.data);
+            return res.data;
+        })
+        .catch((err) => console.log(err));
+
+    setData(res);
+};

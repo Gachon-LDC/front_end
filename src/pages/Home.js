@@ -21,7 +21,6 @@ const Home = () => {
         titleElement.innerHTML = `LDC`;
     }, []);
 
-    const diaryList = useContext(DiaryStateContext);
     const { getVideos } = useContext(VideoContext);
 
     const [data, setData] = useState([]);

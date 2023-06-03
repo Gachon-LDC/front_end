@@ -10,7 +10,7 @@ const PostList = ({ postList }) => {
     return (
         <div className="PostList">
             {postList.map((it) => (
-                <PostItem key={it.video_id} title={it.title} dance={it.dance} content={it.ontent} />
+                <PostItem key={it.video_id} id={it.video_id} title={it.title} dance={it.dance} content={it.ontent} />
             ))}
         </div>
     );

@@ -23,7 +23,7 @@ const Learn = () => {
 
     const { id } = useParams();
     //id 를 꺼내쓰자
-    const diaryList = useContext(DiaryStateContext);
+
     const navigate = useNavigate();
     const [data, setData] = useState();
     const [source, setSource] = useState();
@@ -66,15 +66,6 @@ const Learn = () => {
         }
         return () => clearInterval(interval);
     }, [timer]);
-
-    useEffect(() => {
-        const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
-        if (targetDiary) {
-            setData(targetDiary);
-        } else {
-            navigate("/", { replace: true });
-        }
-    }, [id, diaryList]);
 
     useEffect(() => {
         if (data) {
