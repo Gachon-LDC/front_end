@@ -26,6 +26,26 @@ export const getVideoById = async (id, setData) => {
     setData(res);
 };
 
+export const postNewVideo = async (fps, file, content, title, dance) => {
+    const res = await axios
+        .post(`${API_URL}/api/videos/`)
+        .then((res) => {
+            console.log("postNewVideo : ", res.data);
+            return res.data;
+        })
+        .catch((err) => console.log(err));
+};
+
+export const deleteVideo = async (id) => {
+    const res = await axios
+        .delete(`${API_URL}/api/videos/${id}`)
+        .then((res) => {
+            console.log("deleteVideo : ", res.data);
+            return res.data;
+        })
+        .catch((err) => console.log(err));
+};
+
 /* Comment */
 
 export const postComment = async (id, comment) => {
