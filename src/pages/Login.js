@@ -4,6 +4,7 @@ import "./css/Login.css";
 import video from "../assets/ditto720main.mp4";
 
 import video3 from "../assets/dancerMain.mov";
+import LDC from "../assets/LDC2.png";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -109,7 +110,9 @@ const Login = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <div className="logo">LDC</div>
+            <div className="logo">
+                <img src={LDC} width="200px" />
+            </div>
             <form className="login_form" onSubmit={handleLogin}>
                 <InputGroup>
                     <Form.Control
