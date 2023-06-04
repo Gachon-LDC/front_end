@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import "./css/PostItem.css";
-const PostItem = ({ id, emotion, content, date, file, title }) => {
+const PostItem = ({ id, content, title }) => {
     const navigate = useNavigate();
 
     const goDetail = () => {

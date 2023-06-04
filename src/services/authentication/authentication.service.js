@@ -19,10 +19,9 @@ export const registerHandler = (email, pwd, setShow) => {
         })
         .catch((err) => {
             if (err.response.status === 409) {
-                console.log(err.response);
+                console.log(err);
                 console.log(err.response.data);
-                console.log(err.response.status);
-                alert("이미 존재하는 계정입니다.");
+                alert(err.response.data);
             } else {
                 console.log(err.response.data);
                 console.log(err.response.status);
@@ -50,9 +49,57 @@ export const loginHandler = (email, pwd) => {
         })
         .catch((err) => {
             console.log(err.response.data);
-            console.log(err.response.status);
+            console.log(err);
             alert(err.response.data);
+            return err;
         });
 
     return loginResult;
+};
+
+/* Logout */
+
+export const logoutHandler = (email, pwd) => {
+    const data = {
+        email: email,
+        pwd: pwd,
+    };
+
+    console.log(data);
+    let res = axios
+        .delete(`${API_URL}/api/auth`, { data })
+        .then((res) => {
+            alert(res.status);
+            return res;
+        })
+        .catch((err) => {
+            alert(err.status);
+            console.log(err);
+            return err;
+        });
+
+    return res;
+};
+
+/* Withdrawal user (회원탈퇴) */
+export const withdrawalHandler = (email, pwd) => {
+    const data = {
+        email: email,
+        pwd: pwd,
+    };
+
+    console.log(data);
+    let withdrawalRes = axios
+        .delete(`${API_URL}/api/auth/register`, data)
+        .then((res) => {
+            alert(res.status);
+            return res;
+        })
+        .catch((err) => {
+            alert(err.status);
+            console.log(err);
+            return err;
+        });
+
+    return withdrawalRes;
 };

@@ -12,3 +12,17 @@ export const getDanceCategory = async () => {
         .catch((e) => console.log(e));
     return res;
 };
+
+export const postDanceCategory = async ({ category }) => {
+    const data = {
+        title: category,
+    };
+    let res = await axios
+        .post(`${API_URL}/api/category`, data)
+        .then((res) => {
+            console.log(res.data);
+            return res.data;
+        })
+        .catch((e) => console.log(e));
+    return res;
+};

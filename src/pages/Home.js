@@ -10,6 +10,7 @@ import MyButton from "../components/MyButton";
 import { useNavigate } from "react-router-dom";
 import { CategoryBar } from "../components/CategoryBar";
 import { AuthenticationContext } from "../services/authentication/authentication.context";
+import { VideoContext } from "../services/video/video.context";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -20,19 +21,27 @@ const Home = () => {
         titleElement.innerHTML = `LDC`;
     }, []);
 
-    const diaryList = useContext(DiaryStateContext);
+    const { getVideos } = useContext(VideoContext);
 
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        if (diaryList.length >= 1) {
-            setData(diaryList);
-        }
-    }, [diaryList]);
-
     // useEffect(() => {
-    //     isLogin || navigate("/");
-    // }, [isLogin]);
+    //     if (diaryList.length >= 1) {
+    //         setData(diaryList);
+    //     }
+    // }, [diaryList]);
+
+    const onLoadhome = () => {
+        getVideos(setData);
+    };
+
+    useEffect(() => {
+        onLoadhome();
+    }, []);
+
+    useEffect(() => {
+        isLogin || navigate("/");
+    }, [isLogin]);
 
     return (
         <div className="Home">

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Route, useNavigate, useParams } from "react-router-dom";
-import { DiaryStateContext } from "../App";
+
 import MyButton from "../components/MyButton";
 import MyHeader from "../components/MyHeader";
 import CommentList from "../components/CommentList";
@@ -12,6 +12,7 @@ import Vid from "../../src/pages/videoplayback.mp4";
 
 import { AiOutlinePlayCircle, AiOutlinePauseCircle, AiOutlineVideoCamera } from "react-icons/ai";
 import LearnIcon from "../assets/learn.png";
+import { VideoContext } from "../services/video/video.context";
 
 const Post = () => {
     //탭 이름을 바꾸는 코드.
@@ -21,8 +22,9 @@ const Post = () => {
     }, []);
 
     const { id } = useParams();
+
     //id 를 꺼내쓰자
-    const diaryList = useContext(DiaryStateContext);
+
     const navigate = useNavigate();
     const [data, setData] = useState();
     const [source, setSource] = useState();
@@ -37,23 +39,18 @@ const Post = () => {
         seeking: false, // 재생바를 움직이고 있는지
         duration: 0, // 전체 시간
     });
+    const { getVideoById } = useContext(VideoContext);
     const onStartVid = () => {
         setVidState({ ...vidState, playing: !vidState.playing });
     };
+
+    const onPageLoad = () => {
+        getVideoById(id, setData);
+    };
     useEffect(() => {
-        const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
-        if (targetDiary) {
-            setData(targetDiary);
-        } else {
-            navigate("/home", { replace: true });
-        }
-    }, [id, diaryList]);
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            setSource(data.file.data);
-        }
-    }, [data]);
+        onPageLoad();
+    }, []);
+
     if (!data) {
         return <div className="Post">로딩중입니다...</div>;
     } else {
@@ -62,7 +59,7 @@ const Post = () => {
                 <MyHeader
                     headText={data.title}
                     leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
-                    rightChild={<MyButton text={"수정하기"} onClick={() => navigate(`/edit/${data.id}`)} />}
+                    rightChild={<MyButton text={"수정하기"} onClick={() => navigate(`/edit/${data.video_id}`)} />}
                 />
                 <div className="body">
                     <div className="videoWrapper">
@@ -91,7 +88,7 @@ const Post = () => {
                     </div>
                     {/* <Outlet/> */}
 
-                    <CommentList />
+                    <CommentList id={data.video_id} />
                 </div>
             </div>
         );

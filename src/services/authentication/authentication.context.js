@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 
-import { registerHandler, loginHandler } from "./authentication.service";
+import { registerHandler, loginHandler, withdrawalHandler, logoutHandler } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -15,13 +15,15 @@ export const AuthenticationContextProvider = ({ children }) => {
     }, [userData]);
     const onLogin = async (id, pwd) => {
         const loginRes = await loginHandler(id, pwd);
-        console.log(loginRes);
+        console.log("loginRes : ", loginRes);
         if (loginRes.status == 201) {
             console.log(loginRes.status);
             console.log(loginRes.data);
             setUserData(loginRes.data);
             setIsLogin(true);
             localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("email", id);
+            localStorage.setItem("pwd", pwd);
             localStorage.setItem("userData", JSON.stringify(loginRes.data));
         }
     };
@@ -29,8 +31,11 @@ export const AuthenticationContextProvider = ({ children }) => {
     const onLogout = () => {
         setUserData("");
         setIsLogin(false);
+        logoutHandler(localStorage.getItem("email"), localStorage.getItem("pwd"));
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("userData");
+        localStorage.removeItem("email");
+        localStorage.removeItem("pwd");
         alert("로그아웃 되었습니다!");
     };
 
@@ -42,6 +47,7 @@ export const AuthenticationContextProvider = ({ children }) => {
                 isLogin, // 로그인 상태
                 userData,
                 onLogout, // 로그아웃 호출 함수
+                withdrawalHandler, //회원탈퇴
             }}
         >
             {children}

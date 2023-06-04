@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Learn from "./pages/Learn";
 import { AuthenticationContextProvider } from "./services/authentication/authentication.context";
 import { DanceCategoryContextProvider } from "./services/danceCategory/danceCategory.context";
+import { VideoContextProvider } from "./services/video/video.context";
 
 const reducer = (state, action) => {
     let newState = [];
@@ -42,7 +43,6 @@ const reducer = (state, action) => {
     return newState;
 };
 
-export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
 function App() {
@@ -96,7 +96,7 @@ function App() {
     return (
         <AuthenticationContextProvider>
             <DanceCategoryContextProvider>
-                <DiaryStateContext.Provider value={data}>
+                <VideoContextProvider>
                     <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
                         <BrowserRouter>
                             <div className="App">
@@ -112,7 +112,7 @@ function App() {
                             </div>
                         </BrowserRouter>
                     </DiaryDispatchContext.Provider>
-                </DiaryStateContext.Provider>
+                </VideoContextProvider>
             </DanceCategoryContextProvider>
         </AuthenticationContextProvider>
     );

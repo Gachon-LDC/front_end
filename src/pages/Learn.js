@@ -13,6 +13,8 @@ import Vid from "../../src/pages/videoplayback.mp4";
 import LearnIcon from "../assets/learn.png";
 import CommentList from "../components/CommentList";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
+import { VideoContext } from "../services/video/video.context";
+import { LearnResultModal } from "../components/LearnResultModal";
 
 const Learn = () => {
     //탭 이름을 바꾸는 코드.
@@ -23,15 +25,19 @@ const Learn = () => {
 
     const { id } = useParams();
     //id 를 꺼내쓰자
-    const diaryList = useContext(DiaryStateContext);
+
     const navigate = useNavigate();
     const [data, setData] = useState();
-    const [source, setSource] = useState();
     const [openCamera, setOpenCamera] = useState(true);
     const [timer, setTimer] = useState(0);
     const [learning, setLearning] = useState(false);
     const [sendStart, setSendStart] = useState(false);
     const [learnComplete, setLearnComplete] = useState(true);
+    const [resultModalShow, setResultModalShow] = useState(false);
+
+    const handleClose = () => {
+        setResultModalShow(false);
+    };
     const player = useRef();
 
     const [vidState, setVidState] = useState({
@@ -45,6 +51,14 @@ const Learn = () => {
         duration: 0, // 전체 시간
         loop: true,
     });
+    const { getVideoById } = useContext(VideoContext);
+
+    const onPageLoad = () => {
+        getVideoById(id, setData);
+    };
+    useEffect(() => {
+        onPageLoad();
+    }, []);
 
     const onLearnStart = () => {
         setOpenCamera(false);
@@ -68,27 +82,12 @@ const Learn = () => {
     }, [timer]);
 
     useEffect(() => {
-        const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
-        if (targetDiary) {
-            setData(targetDiary);
-        } else {
-            navigate("/", { replace: true });
-        }
-    }, [id, diaryList]);
-
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            setSource(data.file.data);
-        }
-    }, [data]);
-
-    useEffect(() => {
         console.log(vidState.played);
         if (vidState.played === 1) {
             setLearning(false);
             setSendStart(false);
             setLearnComplete(true);
+            setResultModalShow(true);
         }
     }, [vidState.played]);
 
@@ -97,6 +96,7 @@ const Learn = () => {
     } else {
         return (
             <div className="Post Learn">
+                <LearnResultModal show={resultModalShow} handleClose={handleClose} />
                 <MyHeader
                     headText={data.title}
                     leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}

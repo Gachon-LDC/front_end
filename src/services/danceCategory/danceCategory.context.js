@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-import { getDanceCategory } from "./danceCategory.service";
+import { getDanceCategory, postDanceCategory } from "./danceCategory.service";
 
 export const DanceCategoryContext = createContext();
 
 export const DanceCategoryContextProvider = ({ children }) => {
-    return <DanceCategoryContext.Provider value={{ getDanceCategory }}>{children}</DanceCategoryContext.Provider>;
+    return <DanceCategoryContext.Provider value={{ getDanceCategory, postDanceCategory }}>{children}</DanceCategoryContext.Provider>;
 };
