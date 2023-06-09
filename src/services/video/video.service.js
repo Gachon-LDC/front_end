@@ -72,3 +72,19 @@ export const getComments = async (id, setData) => {
 
     setData(res);
 };
+
+/*  Learn  */
+export const getPhotoSimilarity = async (formData, video_id) => {
+    const res = await axios
+        .post(`${API_URL}/api/videos/${video_id}}/learn`, formData)
+        .then((res) => {
+            console.log("sim res : ", res);
+            return res;
+        })
+        .catch((err) => {
+            console.log(err);
+            return err;
+        });
+
+    return res;
+};

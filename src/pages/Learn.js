@@ -135,7 +135,7 @@ const Learn = () => {
                                 <h1>{timer}</h1>
                             </div>
                         )}
-                        <WebcamCapture sendStart={sendStart} learnComplete={learnComplete} />
+                        <WebcamCapture sendStart={sendStart} learnComplete={learnComplete} id={id} />
                     </div>
                 </div>
                 <div>재생속도 : {vidState.playbackRate}</div>
