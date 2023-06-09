@@ -64,7 +64,7 @@ const Learn = () => {
         setOpenCamera(false);
         setVidState({ ...vidState, playing: false });
         player.current.seekTo(0);
-        setTimer(5);
+        setTimer(3);
         setLearning(true);
         setLearnComplete(false);
     };
@@ -82,7 +82,7 @@ const Learn = () => {
     }, [timer]);
 
     useEffect(() => {
-        console.log(vidState.played);
+        // console.log(vidState.played);
         if (vidState.played === 1) {
             setLearning(false);
             setSendStart(false);

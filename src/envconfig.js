@@ -1,1 +1,3 @@
-export const HOST = "http://14.35.246.224:6789/";
+export const HOST = "https://ldc.insiro.me";
+export const API_URL = "https://ldc.insiro.me";
+export const PASS = 95;
