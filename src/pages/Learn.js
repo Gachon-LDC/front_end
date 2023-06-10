@@ -162,7 +162,7 @@ const Learn = () => {
                     <div className="videoWrapper">
                         <ReactPlayer
                             playbackRate={vidState.playbackRate}
-                            url={Vid}
+                            url={`https://ldc.insiro.me/media/video/${data.video_id}.mp4`}
                             width="100%"
                             height="100%"
                             muted={vidState.muted}

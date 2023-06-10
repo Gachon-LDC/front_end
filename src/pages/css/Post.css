@@ -13,7 +13,7 @@
 }
 .Post .videoWrapper {
     border-radius: 40px;
-    /* background-color: red; */
+
     overflow: hidden;
     width: 485px;
     height: 670px;
@@ -65,5 +65,3 @@
 .Video_Uploader .content {
     padding: 20px;
 }
-
-

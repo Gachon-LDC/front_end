@@ -63,7 +63,7 @@ const Post = () => {
                 />
                 <div className="body">
                     <div className="videoWrapper">
-                        <ReactPlayer url={Vid} width="485px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
+                        <ReactPlayer url={`https://ldc.insiro.me/media/video/${data.video_id}.mp4`} width="485px" height="720px" muted={vidState.muted} playing={vidState.playing} loop={true} />
                     </div>
                     <div className="controller">
                         <div onClick={onStartVid}>

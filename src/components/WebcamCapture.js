@@ -136,13 +136,13 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
 
     return (
         <div className="WebcamCapture">
-            <Webcam width={"200px"} audio={false} ref={webcamRef} screenshotFormat="image/png" videoConstraints={videoConstraints} mirrored={false} />
-            <Button text={"Capture"} onClick={sendBase64}>
+            <Webcam audio={false} ref={webcamRef} screenshotFormat="image/png" videoConstraints={videoConstraints} mirrored={false} />
+            {/* <Button text={"Capture"} onClick={sendBase64}>
                 Blob으로 보내보기
             </Button>
             <Button text={"Capture"} onClick={sendImage}>
                 이미지로 보내보기
-            </Button>
+            </Button> */}
             {/* <img width={"200px"} src={`data:image/png;base64,${img}`} /> */}
             {/* {similarities.toString()} */}
         </div>

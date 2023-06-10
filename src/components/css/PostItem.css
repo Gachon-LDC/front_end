@@ -3,8 +3,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 45%;
-    /* margin: 4%; */
+    width: 50%;
 }
-.Card {
+.PostItem video {
+    height: auto;
+}
+.PostItem .VideoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.PostItem .card-header {
+    height: 500px;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+}
+.PostItem .Card {
+    width: 90%;
+    height: 100%;
 }
