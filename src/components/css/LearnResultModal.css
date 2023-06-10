@@ -1,0 +1,39 @@
+.LearnResultModal .modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.LearnResultModal .modal-header {
+    width: 100%;
+}
+.LearnResultModal .modal-body {
+    width: 90% !important;
+}
+.LearnResultModal .bodyText {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+}
+.LearnResultModal .progressbar {
+    margin-top: 40px;
+    height: 60px;
+    border-radius: 20px;
+}
+.LearnResultModal .PERFECT {
+    font-size: 3em;
+    color: rgb(32, 51, 251);
+    text-align: center;
+    margin-bottom: 20px;
+}
+.LearnResultModal .NORMAL {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(54, 124, 0);
+}
+.LearnResultModal .POOR {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: rgb(118, 72, 0);
+}

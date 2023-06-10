@@ -82,8 +82,8 @@ export const getPhotoSimilarity = async (formData, video_id) => {
     const res = await axios
         .post(`${API_URL}/api/videos/${video_id}/learn`, formData, header)
         .then((res) => {
-            console.log("sim res : ", res.data);
-            return res;
+            // console.log("sim res : ", res.data);
+            return res.data;
         })
         .catch((err) => {
             console.log(err);
@@ -93,16 +93,15 @@ export const getPhotoSimilarity = async (formData, video_id) => {
     return res;
 };
 export const getPhotoSimilarity2 = async (formData, video_id) => {
-    const header = {
-        headers: {
-            "content-type": "multipart/form-data",
-        },
-    };
     const res = await axios
-        .post(`${API_URL}/api/videos/${video_id}/learn2`, formData, header)
+        .post(`${API_URL}/api/videos/${video_id}/learn2`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
         .then((res) => {
             console.log("sim res : ", res.data);
-            return res;
+            return res.data;
         })
         .catch((err) => {
             console.log(err);

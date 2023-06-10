@@ -7,11 +7,10 @@ import styled from "styled-components";
 import { WebcamCapture } from "../components/WebcamCapture";
 import "./css/Learn.css";
 
-import { AiOutlinePlayCircle, AiOutlinePauseCircle, AiOutlineVideoCamera } from "react-icons/ai";
+import { AiOutlineVideoCamera } from "react-icons/ai";
 import ReactPlayer from "react-player";
 import Vid from "../../src/pages/videoplayback.mp4";
 import LearnIcon from "../assets/learn.png";
-import CommentList from "../components/CommentList";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { VideoContext } from "../services/video/video.context";
 import { LearnResultModal } from "../components/LearnResultModal";
@@ -34,6 +33,11 @@ const Learn = () => {
     const [sendStart, setSendStart] = useState(false);
     const [learnComplete, setLearnComplete] = useState(true);
     const [resultModalShow, setResultModalShow] = useState(false);
+    const [resLoading, setResLoading] = useState(true);
+    const [learnPercent, setLearnPercent] = useState(0);
+
+    const webcamRef = React.useRef(null);
+    const { getVideoById, getPhotoSimilarity } = useContext(VideoContext);
 
     const handleClose = () => {
         setResultModalShow(false);
@@ -51,7 +55,6 @@ const Learn = () => {
         duration: 0, // 전체 시간
         loop: true,
     });
-    const { getVideoById } = useContext(VideoContext);
 
     const onPageLoad = () => {
         getVideoById(id, setData);
@@ -60,14 +63,26 @@ const Learn = () => {
         onPageLoad();
     }, []);
 
-    const onLearnStart = () => {
+    const [frameInterval, setFrameInterval] = useState(1);
+    const [fps, setFps] = useState(1);
+    const [duration, setDuration] = useState(0);
+    const onLearnStart = async () => {
+        setDuration(player.current.getDuration());
+        const fpsRes = await sendImage();
         setOpenCamera(false);
         setVidState({ ...vidState, playing: false });
         player.current.seekTo(0);
         setTimer(3);
+        setFps(fpsRes.fps);
         setLearning(true);
         setLearnComplete(false);
     };
+
+    useEffect(() => {
+        console.log("fps : ", fps);
+        setFrameInterval(1000 / fps);
+        console.log("frame Interval : ", 1000 / fps);
+    }, [fps]);
     useEffect(() => {
         const interval = setInterval(() => {
             setTimer((timer) => timer - 1);
@@ -91,12 +106,53 @@ const Learn = () => {
         }
     }, [vidState.played]);
 
+    /* 이미지 전송을 위한 코드 */
+
+    const captureImg = React.useCallback(async () => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        // base64 문자열을 파일로 변환
+        const file = await base64ToFile(imageSrc);
+        return file;
+    }, [webcamRef]);
+
+    // base64 문자열을 파일로 변환하는 함수
+    function base64ToFile(base64) {
+        const byteCharacters = atob(base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+            const slice = byteCharacters.slice(offset, offset + 512);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, { type: "image/png" }); // 이미지 형식에 맞게 타입 변경
+        const file = new File([blob], `image.png`, { type: "image/png" }); // 파일 이름과 타입 설정
+
+        return file;
+    }
+
+    const sendImage = async () => {
+        const imageFile = await captureImg();
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        formData.append("nframe", 0);
+        const res = await getPhotoSimilarity(formData, id);
+        return res;
+    };
+
     if (!data) {
         return <div className="Post">로딩중입니다...</div>;
     } else {
         return (
             <div className="Post Learn">
-                <LearnResultModal show={resultModalShow} handleClose={handleClose} />
+                <LearnResultModal show={resultModalShow} handleClose={handleClose} resLoading={resLoading} learnPercent={learnPercent} />
                 <MyHeader
                     headText={data.title}
                     leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
@@ -135,7 +191,17 @@ const Learn = () => {
                                 <h1>{timer}</h1>
                             </div>
                         )}
-                        <WebcamCapture sendStart={sendStart} learnComplete={learnComplete} id={id} />
+                        <WebcamCapture
+                            sendStart={sendStart}
+                            learnComplete={learnComplete}
+                            id={id}
+                            frameInterval={frameInterval}
+                            webcamRef={webcamRef}
+                            fps={fps}
+                            setResLoading={setResLoading}
+                            duration={duration}
+                            setLearnPercent={setLearnPercent}
+                        />
                     </div>
                 </div>
                 <div>재생속도 : {vidState.playbackRate}</div>
@@ -156,14 +222,6 @@ const Learn = () => {
                         2x
                     </Button>
                 </ButtonGroup>
-                {/* <ButtonGroup>
-                    <Button variant="outline-primary" onClick={() => setVidState({ ...vidState, muted: !vidState.muted })}>
-                        mute
-                    </Button>
-                    <Button variant="outline-primary" onClick={() => setVidState({ ...vidState, controls: !vidState.controls })}>
-                        controls
-                    </Button>
-                </ButtonGroup> */}
             </div>
         );
     }
