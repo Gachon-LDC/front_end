@@ -36,7 +36,7 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
             if (sendStart == true) {
                 // console.log(frame);
                 frame += 1;
-                if (frame % fps === 0 || frame % fps === Math.floor(fps / 2)) {
+                if (frame % fps === 0) {
                     const nowFrame = frame;
                     allres.push({ frame: nowFrame });
                     const sim = await sendImage(frame);
@@ -124,7 +124,7 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
             similarities.push(false);
             console.log("sim p/f : ", similarities);
         }
-        if (similarities.length === Math.floor(duration * 2)) {
+        if (similarities.length === Math.floor(duration)) {
             // 현재 초당 2번씩 전송중이라 전체 길이 * 2개의 데이터가 생기면 종료
             console.log("finish");
             setResLoading(false);

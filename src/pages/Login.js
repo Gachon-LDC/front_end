@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Login.css";
-import video from "../assets/ditto720main.mp4";
 
 import video3 from "../assets/dancerMain.mov";
 import LDC from "../assets/LDC2.png";
