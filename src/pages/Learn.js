@@ -35,6 +35,7 @@ const Learn = () => {
     const [resultModalShow, setResultModalShow] = useState(false);
     const [resLoading, setResLoading] = useState(true);
     const [learnPercent, setLearnPercent] = useState(0);
+    const [curFrame, setCurFrame] = useState(0);
 
     const webcamRef = React.useRef(null);
     const { getVideoById, getPhotoSimilarity } = useContext(VideoContext);
@@ -68,6 +69,7 @@ const Learn = () => {
     const [duration, setDuration] = useState(0);
     const onLearnStart = async () => {
         setDuration(player.current.getDuration());
+        console.log("총 초 : ", player.current.getDuration());
         const fpsRes = await sendImage();
         setOpenCamera(false);
         setVidState({ ...vidState, playing: false });
@@ -152,7 +154,7 @@ const Learn = () => {
     } else {
         return (
             <div className="Post Learn">
-                <LearnResultModal show={resultModalShow} handleClose={handleClose} resLoading={resLoading} learnPercent={learnPercent} />
+                <LearnResultModal show={resultModalShow} handleClose={handleClose} resLoading={resLoading} learnPercent={learnPercent} curFrame={curFrame} fps={fps} duration={duration} />
                 <MyHeader
                     headText={data.title}
                     leftChild={<MyButton text={"뒤로가기"} onClick={() => navigate(-1)} />}
@@ -201,6 +203,7 @@ const Learn = () => {
                             setResLoading={setResLoading}
                             duration={duration}
                             setLearnPercent={setLearnPercent}
+                            setCurFrame={setCurFrame}
                         />
                     </div>
                 </div>

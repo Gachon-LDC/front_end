@@ -2,7 +2,7 @@ import { Modal, ProgressBar, Spinner } from "react-bootstrap";
 import "./css/LearnResultModal.css";
 import { Firework } from "./Firework";
 
-export const LearnResultModal = ({ show, handleClose, resLoading, learnPercent }) => {
+export const LearnResultModal = ({ show, handleClose, resLoading, learnPercent, curFrame, fps, duration }) => {
     return (
         <Modal className="LearnResultModal" show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -10,7 +10,12 @@ export const LearnResultModal = ({ show, handleClose, resLoading, learnPercent }
             </Modal.Header>
             <Modal.Body>
                 {resLoading ? (
-                    <Spinner></Spinner>
+                    <div className="modalBody">
+                        <h4>
+                            {curFrame} / {Math.floor(fps * duration)}
+                        </h4>{" "}
+                        <Spinner></Spinner>
+                    </div>
                 ) : (
                     <div className="modalBody">
                         <Firework />

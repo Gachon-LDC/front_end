@@ -12,7 +12,7 @@ const videoConstraints = {
     facingMode: "user",
 };
 
-export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, webcamRef, fps, setResLoading, duration, setLearnPercent }) => {
+export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, webcamRef, fps, setResLoading, duration, setLearnPercent, setCurFrame }) => {
     // const [similarities, setSimilarities] = useState([]);
     let similarities = [];
 
@@ -29,16 +29,19 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
     };
 
     let frame = 0;
+    let allres = [];
     // 프레임 단위로 이미지를 전송하는 코드
     useEffect(() => {
         const interval = setInterval(async () => {
             if (sendStart == true) {
-                console.log(frame);
+                // console.log(frame);
                 frame += 1;
                 if (frame % fps === 0 || frame % fps === Math.floor(fps / 2)) {
                     const nowFrame = frame;
+                    allres.push({ frame: nowFrame });
                     const sim = await sendImage(frame);
                     console.log("frame : ", nowFrame, "sim : ", sim);
+                    setCurFrame(nowFrame);
                 }
             }
         }, frameInterval);
@@ -64,15 +67,19 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
         getSimRequest2(formData);
     };
 
-    const captureImg = React.useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        // base64 문자열을 파일로 변환
-        const file = await base64ToFile(imageSrc);
-        return file;
-    }, [webcamRef]);
+    const captureImg = React.useCallback(
+        async (f) => {
+            const imageSrc = webcamRef.current.getScreenshot();
+            // base64 문자열을 파일로 변환
+            const res = await base64ToFile(imageSrc, f);
+            console.log(`${f} 프레임 : ${imageSrc}`);
+            return res;
+        },
+        [webcamRef]
+    );
 
     // base64 문자열을 파일로 변환하는 함수
-    function base64ToFile(base64) {
+    function base64ToFile(base64, f) {
         const byteCharacters = atob(base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
         const byteArrays = [];
 
@@ -89,17 +96,24 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
         }
 
         const blob = new Blob(byteArrays, { type: "image/png" }); // 이미지 형식에 맞게 타입 변경
-        const file = new File([blob], `image${frame}.png`, { type: "image/png" }); // 파일 이름과 타입 설정
+        const file = new File([blob], `image${f}.png`, { type: "image/png" }); // 파일 이름과 타입 설정
 
-        return file;
+        const res = { base64: base64, file: file };
+        return res;
     }
 
     const sendImage = async (f) => {
         const formData = new FormData();
         formData.append("nframe", f);
-        const imageFile = await captureImg();
-        formData.append("image", imageFile);
+        const imageFile = await captureImg(f);
+        formData.append("image", imageFile.file);
         const res = await getSimRequest(formData);
+
+        allres.forEach((it, index) => {
+            if (it.frame === f) {
+                allres[index] = { ...it, file: imageFile, sim: res.simirarity };
+            }
+        });
         if (res.simirarity >= PASS) {
             console.log(true);
             similarities.push(true);
@@ -110,21 +124,19 @@ export const WebcamCapture = ({ sendStart, learnComplete, id, frameInterval, web
             similarities.push(false);
             console.log("sim p/f : ", similarities);
         }
-        if (similarities.length === duration * 2) {
+        if (similarities.length === Math.floor(duration * 2)) {
             // 현재 초당 2번씩 전송중이라 전체 길이 * 2개의 데이터가 생기면 종료
             console.log("finish");
             setResLoading(false);
-
+            console.log("All Results : ", allres);
             const calcPassPercent = (sim) => {
                 let trueCount = 0;
-
                 // 배열을 순회하면서 true인 경우 trueCount를 증가시킴
                 for (let i = 0; i < sim.length; i++) {
                     if (sim[i] === true) {
                         trueCount++;
                     }
                 }
-
                 // true의 비율 계산
                 const truePercentage = (trueCount / sim.length) * 100;
                 return truePercentage;
