@@ -8,7 +8,6 @@ import styled from "styled-components";
 import { WebcamCapture } from "../components/WebcamCapture";
 import "./css/Post.css";
 import ReactPlayer from "react-player";
-import Vid from "../../src/pages/videoplayback.mp4";
 
 import { AiOutlinePlayCircle, AiOutlinePauseCircle, AiOutlineVideoCamera } from "react-icons/ai";
 import LearnIcon from "../assets/learn.png";

@@ -9,7 +9,6 @@ import "./css/Learn.css";
 
 import { AiOutlineVideoCamera } from "react-icons/ai";
 import ReactPlayer from "react-player";
-import Vid from "../../src/pages/videoplayback.mp4";
 import LearnIcon from "../assets/learn.png";
 import { Button, ButtonGroup, Spinner } from "react-bootstrap";
 import { VideoContext } from "../services/video/video.context";
