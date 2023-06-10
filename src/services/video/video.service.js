@@ -1,6 +1,5 @@
 import axios from "axios";
-import {API_URL} from "../../envconfig";
-
+import { API_URL } from "../../envconfig";
 
 export const getVideos = async (setData) => {
     const res = await axios
@@ -71,4 +70,43 @@ export const getComments = async (id, setData) => {
         .catch((err) => console.log(err));
 
     setData(res);
+};
+
+/*  Learn  */
+export const getPhotoSimilarity = async (formData, video_id) => {
+    const header = {
+        headers: {
+            "content-type": "multipart/form-data",
+        },
+    };
+    const res = await axios
+        .post(`${API_URL}/api/videos/${video_id}/learn`, formData, header)
+        .then((res) => {
+            // console.log("sim res : ", res.data);
+            return res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+            return err;
+        });
+
+    return res;
+};
+export const getPhotoSimilarity2 = async (formData, video_id) => {
+    const res = await axios
+        .post(`${API_URL}/api/videos/${video_id}/learn2`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then((res) => {
+            console.log("sim res : ", res.data);
+            return res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+            return err;
+        });
+
+    return res;
 };
